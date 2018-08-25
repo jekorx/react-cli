@@ -1,5 +1,6 @@
-# react-cli(master branch)
+# mobile-cli(the branch of react-cli)
 > [create-react-app](https://github.com/facebookincubator/create-react-app)  
+> 移动端模版分支，使用Ant Design Mobile作为UI框架  
 > 支持css modules，必须是src目录下以.modules.css结尾的文件
 
 ## Branch list
@@ -8,11 +9,11 @@
 > 3、[mobile-cli](https://github.com/jekorx/react-cli/tree/mobile-cli)，移动端模版分支，使用antd-mobile  
 
 ## Tech Stack
-> 1、[axios](https://github.com/axios/axios)，基于Promise的HTTP客户端，用于浏览器和node.js  
-> 2、[mobx](https://cn.mobx.js.org)，状态管理  
-> 3、[mobx-react](https://github.com/mobxjs/mobx-react)，包含React组件包装器的包，用于将React与MobX相结合  
-> 4、[prop-types](https://github.com/facebook/prop-types)，props变量类型检测  
-> 5、[qs](https://github.com/ljharb/qs)，查询字符串解析和字符串化库，增加了一些安全性  
+> 1、[antd-mobile](https://mobile.ant.design/docs/react/introduce-cn)，移动UI  
+> 2、[axios](https://github.com/axios/axios)，基于Promise的HTTP客户端，用于浏览器和node.js  
+> 3、[mobx](https://cn.mobx.js.org)，状态管理  
+> 4、[mobx-react](https://github.com/mobxjs/mobx-react)，包含React组件包装器的包，用于将React与MobX相结合  
+> 5、[prop-types](https://github.com/facebook/prop-types)，props变量类型检测  
 > 6、[react](https://reactjs.org)  
 > 7、[react-router](https://github.com/ReactTraining/react-router#packages)，react-router-dom自动引入react-router  
 > 8、[react-loadable](https://github.com/jamiebuilds/react-loadable)，以组件为中心的代码分割和懒加载  

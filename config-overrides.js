@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const { compose } = require('react-app-rewired')
+const { compose, injectBabelPlugin } = require('react-app-rewired')
 const rewireMobx = require('react-app-rewire-mobx')
 const rewireReactHotLoader = require('react-app-rewire-hot-loader')
 const { dependencies } = require('./package.json')
@@ -27,7 +27,7 @@ module.exports = function (config, env) {
     let main = config.entry.slice()
     config.entry = {
       // 尽可能的包含组件中的依赖，例如：antd依赖immutable，需将immutable提取
-      vendors: Object.keys(dependencies).concat(['react-router'/* , 'immutable' */]),
+      vendors: Object.keys(dependencies).concat(['react-router']),
       main
     }
     config.plugins.push(
@@ -70,19 +70,32 @@ module.exports = function (config, env) {
   // 省略后缀
   config.resolve.extensions.push('.modules.css')
   // 在"css" loader之前添加
-  config.module.rules[1].oneOf.unshift({
-    test: /\.modules.css$/,
-    include: /src/,
-    loader: env === 'production'
-      ? require("extract-text-webpack-plugin").extract({
-        fallback: {
-          loader: require.resolve('style-loader'),
-          options: { hmr: false }
-        }, use: cssUse
-      })
-      : [require.resolve('style-loader')].concat(cssUse)
-  })
+  config.module.rules[1].oneOf.unshift(Object.assign({
+      test: /\.modules.css$/,
+      include: /src/
+    }, env === 'production'
+      ? {
+        loader: require('extract-text-webpack-plugin').extract({
+          fallback: {
+            loader: require.resolve('style-loader'),
+            options: { hmr: false }
+          }, use: cssUse
+        })
+      }
+      : {
+        use: [require.resolve('style-loader')].concat(cssUse)
+      }
+    )
+  )
   /* css-modules config end */
+
+  /* babel confi start */
+  // 按需加载组件代码和样式
+  config = injectBabelPlugin(['import', {
+    libraryName: 'antd-mobile',
+    style: 'css'
+  }], config)
+  /* babel confi end */
 
   return compose(
     // mobx
