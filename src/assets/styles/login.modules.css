@@ -1,0 +1,18 @@
+.login {
+  width: 300px;
+  height: 210px;
+  padding: 20px;
+  background-color: #EEE;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto
+}
+.login form i {
+  color: #CCC
+}
+.login form button {
+  width: 100%
+}

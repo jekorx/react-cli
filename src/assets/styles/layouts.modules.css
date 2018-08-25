@@ -1,3 +1,42 @@
+/* main start */
+.layout {
+  height: 100%
+}
+.menu {
+  overflow-x: hidden;
+  overflow-y: auto
+}
+.collapsed {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s
+}
+.collapsed:hover {
+  color: #1890ff
+}
 .header {
-  transform: rotateY(0)
+  padding: 0;
+  border-bottom: 1px solid #e8e8e8
+}
+.content {
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #FFF;
+  position: relative;
+  padding: 16px 16px 0
+}
+/* main end */
+.user-menu {
+  margin-right: 16px;
+  min-width: 50px;
+  padding: 4px 0;
+  text-align: left;
+  border-radius: 4px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.35) !important
+}
+.user-menu >li:not(.divider) {
+  height: 32px !important;
+  line-height: 32px !important
 }

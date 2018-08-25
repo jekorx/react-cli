@@ -5,7 +5,7 @@ import Loadable from 'react-loadable'
 import Loading from '@components/loading'
 
 // 非懒加载页面
-import Index from '@pages/index'
+import Layout from '@layouts'
 // 懒加载页面包装为Loadable
 const LoadWrapper = importComponent => {
   return Loadable({
@@ -14,45 +14,29 @@ const LoadWrapper = importComponent => {
   })
 }
 // 懒加载页面
+const Login = LoadWrapper(() => import(/* webpackChunkName: "login" */'@layouts/login'))
 const Home = LoadWrapper(() => import(/* webpackChunkName: "home" */'@pages/home'))
-const TodoList = LoadWrapper(() => import(/* webpackChunkName: "home/todolist" */'@pages/todo-list'))
-const Test1 = LoadWrapper(() => import(/* webpackChunkName: "home/test1" */'@pages/test1'))
-const Test2 = LoadWrapper(() => import(/* webpackChunkName: "home/test2" */'@pages/test2'))
-const Test3 = LoadWrapper(() => import(/* webpackChunkName: "home/test3" */'@pages/test3'))
-const Test4 = () => <Redirect to="/home/test1" />
+const page1 = {
+  TodoList: LoadWrapper(() => import(/* webpackChunkName: "page1/todos" */'@pages/todo-list')),
+  Upload: LoadWrapper(() => import(/* webpackChunkName: "page1/upload" */'@pages/upload'))
+}
+const NoMatch = () => <Redirect to="/" />
 // 路由列表
 export const routes = [
-  {
-    path: '/',
-    exact: true,
-    component: Index
-  },
+  { path: '/', component: Login, exact: true },
+  { path: '/login', component: Login, exact: true },
+  { path: '/logout', component: Login, exact: true },
   {
     path: '/home',
-    component: Home,
+    component: Layout,
     routes: [
-      {
-        path: '/home/test1',
-        component: Test1
-      },
-      {
-        path: '/home/test2',
-        component: Test2
-      },
-      {
-        path: '/home/test3',
-        component: Test3
-      },
-      {
-        path: '/home/test4',
-        component: Test4
-      }
+      { path: '/home', component: Home, exact: true },
+      { path: '/home/page1/todos1', component: page1.TodoList },
+      { path: '/home/page1/upload', component: page1.Upload },
+      { component: NoMatch }
     ]
   },
-  {
-    path: '/todolist',
-    component: TodoList
-  }
+  { component: NoMatch }
 ]
 // 路由页面，跟页面需传入路由表routes数组，子页面需传入props的routes
 export class RouteViews extends Component {
@@ -64,19 +48,29 @@ export class RouteViews extends Component {
     const { routes } = this.props
     return (
       <Switch>
-        {routes.map(route =>
-          <Route
-            key={route.path}
-            path={route.path}
-            exact={route.exact}
-            render={props =>
-              <route.component
-                {...props}
-                routes={route.routes}
-              />
-            }
-          />
-        )}
+        {routes.map(route => {
+          return route.path
+            ? <Route
+              key={route.path}
+              path={route.path}
+              exact={route.exact}
+              render={props =>
+                <route.component
+                  {...props}
+                  routes={route.routes}
+                />
+              }
+            />
+            : <Route
+              key="404"
+              render={props =>
+                <route.component
+                  {...props}
+                  routes={route.routes}
+                />
+              }
+            />
+        })}
       </Switch>
     )
   }

@@ -1,5 +1,6 @@
 {
   "name": "react-cli",
+  "description": "react-cli/admin-cli",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +10,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "antd": "^3.8.2",
     "axios": "^0.18.0",
     "mobx": "^4.3.1",
     "mobx-react": "^5.2.5",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
+    "babel-plugin-import": "^1.8.0",
     "eslint": "^5.3.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.13.0",
@@ -30,6 +33,7 @@
     "eslint-plugin-react": "^7.10.0",
     "eslint-plugin-standard": "^3.1.0",
     "react-app-rewire-hot-loader": "^1.0.1",
+    "react-app-rewire-less": "^2.1.2",
     "react-app-rewire-mobx": "^1.0.8",
     "react-app-rewired": "^1.5.2",
     "react-hot-loader": "^4.3.4",

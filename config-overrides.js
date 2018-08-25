@@ -1,7 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
-const { compose } = require('react-app-rewired')
+const { compose, injectBabelPlugin } = require('react-app-rewired')
 const rewireMobx = require('react-app-rewire-mobx')
+const rewireLess = require('react-app-rewire-less')
 const rewireReactHotLoader = require('react-app-rewire-hot-loader')
 const { dependencies } = require('./package.json')
 
@@ -27,7 +28,7 @@ module.exports = function (config, env) {
     let main = config.entry.slice()
     config.entry = {
       // 尽可能的包含组件中的依赖，例如：antd依赖immutable，需将immutable提取
-      vendors: Object.keys(dependencies).concat(['react-router'/* , 'immutable' */]),
+      vendors: Object.keys(dependencies).concat(['react-router', 'immutable']),
       main
     }
     config.plugins.push(
@@ -83,6 +84,23 @@ module.exports = function (config, env) {
       : [require.resolve('style-loader')].concat(cssUse)
   })
   /* css-modules config end */
+
+  /* babel confi start */
+  // 按需加载组件代码和样式
+  config = injectBabelPlugin(['import', {
+    libraryName: 'antd',
+    libraryDirectory: 'es',
+    style: true
+  }], config)
+  // 自定义属性
+  config = rewireLess.withLoaderOptions({
+    modifyVars: {
+      '@layout-header-background': '#FFF',
+      '@icon-url': `"${process.env.PUBLIC_URL || ''}/static/fonts/iconfont/iconfont"`
+    },
+    javascriptEnabled: true
+  })(config, env)
+    /* babel confi end */
 
   return compose(
     // mobx

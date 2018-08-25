@@ -14,7 +14,9 @@ export default class Footer extends Component {
   render () {
     const { left } = this.props.todos
     return (
-      <p>{left} item(s) is not finished!</p>
+      <div style={{ textAlign: 'right' }}>
+        {left} item(s) is not finished!
+      </div>
     )
   }
 }

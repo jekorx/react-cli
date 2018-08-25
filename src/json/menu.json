@@ -1,0 +1,27 @@
+[
+  {
+    "url": "/home",
+    "code": "/home",
+    "icon": "home",
+    "title": "主页"
+  },
+  {
+    "code": "/home/page1",
+    "icon": "area-chart",
+    "title": "测试1",
+    "children": [
+      {
+        "url": "/home/page1/todos1",
+        "icon": "bars",
+        "code": "/home/page1/todos1",
+        "title": "todo-list"
+      },
+      {
+        "url": "/home/page1/upload",
+        "icon": "upload",
+        "code": "/home/page1/upload",
+        "title": "upload"
+      }
+    ]
+  }
+]

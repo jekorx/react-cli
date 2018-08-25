@@ -1,0 +1,19 @@
+#root{
+  position: relative;
+  height: 100%
+}
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px
+}
+::-webkit-scrollbar-button {
+  background-color: #F0F2F5;
+  display: none
+}
+::-webkit-scrollbar-thumb {
+  background-color: #C4C6C8
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece {
+  background-color: #F0F2F5
+}

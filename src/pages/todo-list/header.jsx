@@ -1,65 +1,53 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import { Input, Form, Button } from 'antd'
+
+const FormItem = Form.Item
 
 @inject('todos')
 @observer
-export default class Header extends Component {
+class Header extends Component {
   static propTypes = {
+    form: PropTypes.shape({
+      getFieldDecorator: PropTypes.func.isRequired,
+      validateFields: PropTypes.func.isRequired,
+      setFieldsValue: PropTypes.func.isRequired
+    }).isRequired,
     todos: PropTypes.shape({
       add: PropTypes.func.isRequired
     }).isRequired
   }
 
-  state = {
-    val: ''
-  }
-
-  handleInput = e => {
-    this.setState({
-      val: e.target.value
-    })
-  }
-
-  handleAdd = e => {
+  handleSubmit = e => {
     e.preventDefault()
-    if (!this.state.val) {
-      alert('请输入内容！')
-      return false
-    }
-    this.props.todos.add(this.state.val)
-    this.setState({
-      val: ''
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.props.todos.add(values.todo)
+        this.props.form.setFieldsValue({
+          todo: ''
+        })
+      }
     })
   }
 
   render () {
+    const { getFieldDecorator } = this.props.form
     return (
-      <form>
-        <Input
-          type="text"
-          placeholder="What need to be finished?"
-          value={this.state.val}
-          onChange={this.handleInput}
-        />
-        <Submit
-          type="submit"
-          value="add"
-          onClick={this.handleAdd}
-        />
-      </form>
+      <Form layout="inline" onSubmit={this.handleSubmit}>
+        <FormItem>
+          {getFieldDecorator('todo', {
+            rules: [{ required: true, message: 'Please input something to do!' }]
+          })(
+            <Input placeholder="What need to be finished?" style={{ width: 200 }} />
+          )}
+        </FormItem>
+        <FormItem>
+          <Button type="primary" htmlType="submit" icon="plus">add</Button>
+        </FormItem>
+      </Form>
     )
   }
 }
 
-const Input = styled.input`
-  padding: 8px;
-  border: 1px solid #CCC
-`
-const Submit = styled.input`
-  padding: 8px 12px;
-  margin-left: 10px;
-  border: 1px solid #CCC;
-  border-radius: 4px
-`
+export default Form.create()(Header)
