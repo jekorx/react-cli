@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Button, DatePicker } from 'antd-mobile'
-import styles from '@styles/index'
+import { Button, Icon } from 'antd-mobile'
 import $http from '@api'
+import styles from '@styles/index'
 
 export default class Index extends Component {
   handleTest = () => {
@@ -16,17 +16,11 @@ export default class Index extends Component {
   }
 
   render () {
+    console.log(styles)
     return (
-      <div>
-        <Button type="primary" onClick={this.handleTest}>primary</Button>
-        <DatePicker
-          mode="date"
-          title="Select Date"
-          extra="Optional"
-          onChange={date => console.log(date)}
-        >
-          <strong className={styles.index}>Date Date Date Date</strong>
-        </DatePicker>
+      <div className={styles.index}>
+        <Button type="primary">123123</Button>
+        <Icon type="plus" />
       </div>
     )
   }

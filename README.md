@@ -1,7 +1,7 @@
 # mobile-cli(the branch of react-cli)
 > [create-react-app](https://github.com/facebookincubator/create-react-app)  
 > 移动端模版分支，使用Ant Design Mobile作为UI框架  
-> 支持css modules，必须是src目录下以.modules.css结尾的文件
+> 使用stylus，支持css modules，必须是src目录下的.styl文件
 
 ## Branch list
 > 1、[master](https://github.com/jekorx/react-cli/tree/master)，主分支，默认分支，基础使用  

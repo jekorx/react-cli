@@ -4,7 +4,6 @@ import { Provider } from 'mobx-react'
 import { hot } from 'react-hot-loader'
 import store from '@store'
 import { routes, RouteViews } from '@routes'
-import '@styles/index.modules.css'
 
 const baseName = process.env.PUBLIC_URL || '/'
 
