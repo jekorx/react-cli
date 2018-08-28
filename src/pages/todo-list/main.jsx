@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { observer } from 'mobx-react'
-import styled from 'styled-components'
 import Header from './header'
 import List from './list'
 import Footer from './footer'
+import styles from '@styles/todos'
 
 @observer
 export default class Main extends Component {
@@ -11,16 +11,11 @@ export default class Main extends Component {
     return (
       <Fragment>
         <Header />
-        <Ul>
+        <ul className={styles.ul}>
           <List />
-        </Ul>
+        </ul>
         <Footer />
       </Fragment>
     )
   }
 }
-
-const Ul = styled.ul`
-  padding: 0;
-  list-style: none
-`

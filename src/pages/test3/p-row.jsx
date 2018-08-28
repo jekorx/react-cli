@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 export default class Prow extends PureComponent {
   static propTypes = {
@@ -15,15 +14,9 @@ export default class Prow extends PureComponent {
     const { price, stocked, name } = this.props.product
     return (
       <tr>
-        <NameTd stocked={stocked}>{name}</NameTd>
+        <td style={{ color: stocked ? 'red' : '' }}>{name}</td>
         <td>{price}</td>
       </tr>
     )
   }
 }
-
-const NameTd = styled.td`
-  ${props => props.stocked && `
-    color: red
-  `}
-`

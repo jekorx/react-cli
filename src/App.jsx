@@ -5,6 +5,7 @@ import { hot } from 'react-hot-loader'
 import store from '@store'
 import { routes, RouteViews } from '@routes'
 import Header from '@layouts/header'
+import '@styles'
 
 const baseName = process.env.PUBLIC_URL || '/'
 

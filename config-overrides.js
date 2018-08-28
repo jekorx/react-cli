@@ -34,55 +34,69 @@ module.exports = function (config, env) {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendors',
         filename: 'static/js/vendors.[chunkhash:8].js',
-        minChunks: 2  // 三方库在逻辑代码中被调用两次(数字可以自定义)，将公共的代码提取出来
+        minChunks: 2 // 三方库在逻辑代码中被调用两次(数字可以自定义)，将公共的代码提取出来
       })
     )
   }
 
-  /* css-modules config start */
-  let cssUse = [{
-    loader: require.resolve('css-loader'),
-    options: {
-      modules: true,
-      importLoaders: 1,
-      minimize: true,
-      localIdentName: '_[local]_[hash:base64:5]',
-      sourceMap: process.env.GENERATE_SOURCEMAP !== 'false'
+  /* stylus config start */
+  // 生产环境和开发环境共通部分
+  const cssUse = [
+    {
+      loader: require.resolve('css-loader'),
+      options: {
+        modules: true, // 增加modules支持
+        importLoaders: 1,
+        minimize: true,
+        localIdentName: '_[local]_[hash:base64:5]',
+        sourceMap: process.env.GENERATE_SOURCEMAP !== 'false'
+      }
+    },
+    {
+      loader: require.resolve('postcss-loader'),
+      options: {
+        ident: 'postcss',
+        sourceMap: process.env.GENERATE_SOURCEMAP !== 'false',
+        plugins: [
+          require('postcss-flexbugs-fixes'),
+          require('autoprefixer')({
+            browsers: [
+              '>1%',
+              'last 4 versions',
+              'Firefox ESR',
+              'not ie < 9' // React doesn't support IE8 anyway
+            ],
+            flexbox: 'no-2009'
+          })
+        ]
+      }
+    },
+    {
+      loader: require.resolve('stylus-loader') // stylus-loader
     }
-  },{
-    loader: require.resolve('postcss-loader'),
-    options: {
-      ident: 'postcss',
-      plugins: () => [
-        require('postcss-flexbugs-fixes'),
-        autoprefixer({
-          browsers: [
-            '>1%',
-            'last 4 versions',
-            'Firefox ESR',
-            'not ie < 9' // React doesn't support IE8 anyway
-          ],
-          flexbox: 'no-2009'
-        })
-      ]
-    }
-  }]
-  // 省略后缀
-  config.resolve.extensions.push('.modules.css')
-  // 在"css" loader之前添加
-  config.module.rules[1].oneOf.unshift({
-    test: /\.modules.css$/,
-    include: /src/,
-    loader: env === 'production'
-      ? require("extract-text-webpack-plugin").extract({
+  ]
+  // import时可省略stylus文件后缀.styl
+  config.resolve.extensions.push('.styl')
+  // 获取loader添加oneOf处
+  const oneOf = config.module.rules[1].oneOf
+  // 增加stylus文件，file loader exclude
+  oneOf[oneOf.length - 1].exclude.push(/\.styl$/)
+  // 添加到最后一个(file loader)之前，css loader之后
+  oneOf.splice(oneOf.length - 1, 0, Object.assign({
+    test: /\.styl$/,
+    include: /src/
+  }, env === 'production' ? {
+      loader: require('extract-text-webpack-plugin').extract({
         fallback: {
           loader: require.resolve('style-loader'),
           options: { hmr: false }
         }, use: cssUse
       })
-      : [require.resolve('style-loader')].concat(cssUse)
-  })
-  /* css-modules config end */
+    } : {
+      use: [require.resolve('style-loader')].concat(cssUse)
+    }
+  ))
+  /* stylus config end */
 
   return compose(
     // mobx

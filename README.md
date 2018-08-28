@@ -1,6 +1,10 @@
 # react-cli(master branch)
 > [create-react-app](https://github.com/facebookincubator/create-react-app)  
-> 支持css modules，必须是src目录下以.modules.css结尾的文件
+> 使用stylus，支持css modules，必须是src目录下的.styl文件
+
+### 样式提取注意
+> 懒加载页面css modules，会导致样式无法提取，需要再同步组件中进行一次引用 @styles/index.js  
+> 不管是否懒加载页面引用的样式，在@styles/index.js引用，不会重复打包，无副作用  
 
 ## Branch list
 > 1、[master](https://github.com/jekorx/react-cli/tree/master)，主分支，默认分支，基础使用  
@@ -18,7 +22,6 @@
 > 8、[react-loadable](https://github.com/jamiebuilds/react-loadable)，以组件为中心的代码分割和懒加载  
 > 9、[react-app-rewired](https://github.com/timarney/react-app-rewired)，不使用eject，修改项目配置  
 > 10、[react-hot-loader](https://github.com/gaearon/react-hot-loader)，热更新  
-> 11、[styled-components](https://github.com/styled-components/styled-components)，使用标签模板来对组件进行样式化  
 
 ## Directory Structure
 ```bash

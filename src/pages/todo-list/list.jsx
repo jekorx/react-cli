@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { inject, observer, PropTypes as ObservablePropTypes } from 'mobx-react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
 import Item from './item'
+import styles from '@styles/todos'
 
 @inject('todos')
 @observer
@@ -18,23 +18,11 @@ export default class List extends Component {
     const { list, remove } = this.props.todos
     return (
       list.map((todo, index) =>
-        <Li key={index}>
+        <li key={index} className={styles.li}>
           <Item todo={todo} />
-          <Span onClick={() => remove(todo)}>X</Span>
-        </Li>
+          <span className={styles.span} onClick={() => remove(todo)}>X</span>
+        </li>
       )
     )
   }
 }
-
-const Li = styled.li`
-  padding: 10px;
-  border-bottom: 1px solid #EEE
-`
-
-const Span = styled.span`
-  padding: 0 4px;
-  border: 1px solid #777;
-  border-radius: 100%;
-  cursor: pointer
-`

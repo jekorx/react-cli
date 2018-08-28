@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styles from '@styles/todos'
 
 @inject('todos')
 @observer
@@ -37,29 +37,20 @@ export default class Header extends Component {
   render () {
     return (
       <form>
-        <Input
+        <input
           type="text"
           placeholder="What need to be finished?"
+          className={styles.input}
           value={this.state.val}
           onChange={this.handleInput}
         />
-        <Submit
+        <input
           type="submit"
           value="add"
+          className={styles.submit}
           onClick={this.handleAdd}
         />
       </form>
     )
   }
 }
-
-const Input = styled.input`
-  padding: 8px;
-  border: 1px solid #CCC
-`
-const Submit = styled.input`
-  padding: 8px 12px;
-  margin-left: 10px;
-  border: 1px solid #CCC;
-  border-radius: 4px
-`

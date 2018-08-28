@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
 import $http from '@api'
+import styles from '@styles/todos'
 
 export default class Index extends PureComponent {
   constructor (props) {
@@ -106,7 +107,7 @@ export default class Index extends PureComponent {
   render () {
     return (
       <Fragment>
-        <div>
+        <div className={styles.test}>
           <input
             type="text"
             name="username"
