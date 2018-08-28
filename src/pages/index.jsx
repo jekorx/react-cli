@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Icon } from 'antd-mobile'
 import $http from '@api'
-import styles from '@styles/index'
+import styles from '@styles/page'
 
 export default class Index extends Component {
   handleTest = () => {

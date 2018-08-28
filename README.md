@@ -3,6 +3,10 @@
 > 移动端模版分支，使用Ant Design Mobile作为UI框架  
 > 使用stylus，vw布局，支持css modules，必须是src目录下的.styl文件
 
+### 样式提取注意
+> 懒加载页面css modules，会导致样式无法提取，需要再同步组件中进行一次引用 @styles/index.js  
+> 不管是否懒加载页面引用的样式，在@styles/index.js引用，不会重复打包，无副作用  
+
 ## Branch list
 > 1、[master](https://github.com/jekorx/react-cli/tree/master)，主分支，默认分支，基础使用  
 > 2、[admin-cli](https://github.com/jekorx/react-cli/tree/admin-cli)，后台管理模版分支，使用antd  
