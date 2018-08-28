@@ -16,7 +16,6 @@ export default class Index extends Component {
   }
 
   render () {
-    console.log(styles)
     return (
       <div className={styles.index}>
         <Button type="primary">123123</Button>

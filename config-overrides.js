@@ -95,8 +95,8 @@ module.exports = function (config, env) {
   const oneOf = config.module.rules[1].oneOf
   // 增加stylus文件，file loader exclude
   oneOf[oneOf.length - 1].exclude.push(/\.styl$/)
-  // 添加到最后一个(file loader)之前
-  oneOf.unshift(Object.assign({
+  // 添加到最后一个(file loader)之前，css loader之后
+  oneOf.splice(oneOf.length - 1, 0, Object.assign({
     test: /\.styl$/,
     include: /src/
   }, env === 'production' ? {
