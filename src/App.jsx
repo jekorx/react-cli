@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'mobx-react'
 import { hot } from 'react-hot-loader'
 import store from '@store'
-import { routes, RouteViews } from '@routes'
+import Layouts from '@layouts'
 import '@styles'
 
 const baseName = process.env.PUBLIC_URL || '/'
@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <Provider {...store}>
         <Router basename={baseName}>
-          <RouteViews routes={routes} />
+          <Layouts />
         </Router>
       </Provider>
     )

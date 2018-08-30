@@ -1,1 +1,2 @@
-import './page.styl'
+import './global.styl'
+import './layouts.styl'
