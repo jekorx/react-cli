@@ -16,7 +16,7 @@ export default class Header extends Component {
     return (
       <Fragment>
         <Logo />
-        <span>{title}</span>
+        <span style={{ paddingRight: 45 }}>{title}</span>
       </Fragment>
     )
   }

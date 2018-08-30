@@ -20,10 +20,10 @@ export default class DftLayout extends Component {
       <Fragment>
         <NavBar
           mode="light"
-          icon={<Icon type="menu" />}
+          icon={<Icon type="menu" size="20" />}
           onLeftClick={this.onOpenChange}
           className={styles['ignore-header']}
-          rightContent={<Icon type="release" color="#1890ff" />}
+          rightContent={<Icon type="release" color="#1890ff" size="20" />}
         >
           <Header />
         </NavBar>
