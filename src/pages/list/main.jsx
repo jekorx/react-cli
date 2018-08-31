@@ -30,7 +30,8 @@ export default class Main extends Component {
     hasMore: true,
     pageNo: 1,
     pageSize: 7,
-    tab: ''
+    tab: '',
+    height: (document.documentElement.clientHeight || document.body.clientHeight) - 45
   }
   componentDidMount () {
     const { pathname } = this.props.location
@@ -74,7 +75,7 @@ export default class Main extends Component {
   }
 
   render () {
-    const { dataSource, loading, pageSize } = this.state
+    const { dataSource, loading, pageSize, height } = this.state
     return (
       <ListView
         dataSource={dataSource}
@@ -82,7 +83,7 @@ export default class Main extends Component {
         renderRow={rowData => <Item key={rowData.id} data={rowData} />}
         pageSize={pageSize}
         style={{
-          height: (document.documentElement.clientHeight || document.body.clientHeight) - 45,
+          height,
           overflow: 'auto'
         }}
         scrollRenderAheadDistance={500}
