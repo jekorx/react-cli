@@ -1,23 +1,33 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
+import { NavBar } from 'antd-mobile'
 import PropTypes from 'prop-types'
+import Icon from '@components/icon'
 import Logo from './logo'
+import styles from '@styles/layouts'
 
 @inject('_GV_')
 @observer
 export default class Header extends Component {
   static propTypes = {
     _GV_: PropTypes.shape({
-      title: PropTypes.string.isRequired
+      title: PropTypes.string.isRequired,
+      drawerChange: PropTypes.func.isRequired
     }).isRequired
   }
   render () {
-    const { title } = this.props._GV_
+    const { title, drawerChange } = this.props._GV_
     return (
-      <Fragment>
+      <NavBar
+        mode="light"
+        icon={<Icon type="menu" size="20" />}
+        onLeftClick={drawerChange}
+        className={styles['ignore-header']}
+        rightContent={<Icon type="release" color="#1890ff" size="20" />}
+      >
         <Logo />
         <span style={{ paddingRight: 45 }}>{title}</span>
-      </Fragment>
+      </NavBar>
     )
   }
 }

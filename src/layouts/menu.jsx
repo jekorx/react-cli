@@ -3,33 +3,22 @@ import { inject, observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Icon from '@components/icon'
-import User from './user'
 import styles from '@styles/layouts'
 
-@inject('user')
+import User from './user'
+
+@inject('_GV_', 'user')
 @observer
 export default class Menu extends Component {
   static propTypes = {
+    _GV_: PropTypes.shape({
+      menu: PropTypes.array.isRequired,
+      drawerChange: PropTypes.func.isRequired
+    }).isRequired,
     user: PropTypes.shape({
       isLogin: PropTypes.bool.isRequired,
       setUserInfo: PropTypes.func.isRequired
-    }).isRequired,
-    onChange: PropTypes.func.isRequired
-  }
-  state = {
-    menu: [
-      { path: '/all', title: '全部', icon: 'list' },
-      { path: '/good', title: '精华', icon: 'star' },
-      { path: '/share', title: '分享', icon: 'share' },
-      { path: '/ask', title: '问答', icon: 'msg' },
-      { path: '/job', title: '招聘', icon: 'users' },
-      {},
-      { path: '/message', title: '消息', icon: 'ring' },
-      { path: '/about', title: '关于', icon: 'info' }
-    ]
-  }
-  handleClick = () => {
-    this.props.onChange()
+    }).isRequired
   }
   handleLogout = () => {
     this.props.user.setUserInfo({
@@ -38,21 +27,20 @@ export default class Menu extends Component {
       avatar: '',
       isLogin: false
     })
-    this.props.onChange()
+    this.props._GV_.drawerChange()
   }
   render () {
-    const { menu } = this.state
-    const { onChange } = this.props
     const { isLogin } = this.props.user
+    const { drawerChange, menu } = this.props._GV_
     return (
       <ul className={styles['ignore-menu']}>
         <li>
-          <User onChange={onChange}/>
+          <User />
         </li>
         <li className={styles['ignore-divider']}></li>
         {menu.map((m, i) =>
           m.path
-            ? <li key={m.path} onClick={this.handleClick}>
+            ? <li key={m.path} onClick={drawerChange}>
               <Link to={m.path} className={styles['ignore-link']}>
                 <Icon type={m.icon} clsName={styles['ignore-icon']}/>
                 <span className={styles['ignore-title']}>{m.title}</span>

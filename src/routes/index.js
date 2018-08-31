@@ -5,20 +5,7 @@ import Loadable from 'react-loadable'
 import Loading from '@components/loading'
 
 // 非懒加载页面
-function Index () {
-  return (
-    <div>
-      <p>123</p>
-      <p>12354243</p>
-      <p>1235424334234</p>
-      <p>1235424334</p>
-      <p>1235424</p>
-      <p>1235</p>
-      <p>1</p>
-      <p>1234</p>
-    </div>
-  )
-}
+import List from '@pages/list'
 // 懒加载页面包装为Loadable
 const LoadWrapper = importComponent => {
   return Loadable({
@@ -28,11 +15,16 @@ const LoadWrapper = importComponent => {
 }
 // 懒加载页面
 const Login = LoadWrapper(() => import(/* webpackChunkName: "login" */'@pages/login'))
-const NoMatch = () => <Redirect to="/" />
+const NoMatch = () => <Redirect to="/all" />
 // 路由列表
 export const routes = [
-  { path: '/', exact: true, component: Index },
-  { path: '/login', exact: true, component: Login },
+  { path: '/', exact: true, component: NoMatch },
+  { path: '/login', component: Login, title: '登录' },
+  { path: '/all', component: List, title: '全部' },
+  { path: '/good', component: List, title: '精华' },
+  { path: '/share', component: List, title: '分享' },
+  { path: '/ask', component: List, title: '问答' },
+  { path: '/job', component: List, title: '招聘' },
   { component: NoMatch }
 ]
 // 路由页面，跟页面需传入路由表routes数组，子页面需传入props的routes

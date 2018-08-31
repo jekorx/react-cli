@@ -16,6 +16,7 @@ module.exports = function (config, env) {
   alias["@api"] = resolve('api')
   alias["@store"] = resolve('store')
   alias["@routes"] = resolve('routes')
+  alias["@utils"] = resolve('utils')
   alias["@pages"] = resolve('pages')
   alias["@layouts"] = resolve('layouts')
   alias["@components"] = resolve('components')

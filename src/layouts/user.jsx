@@ -5,21 +5,21 @@ import PropTypes from 'prop-types'
 import Icon from '@components/icon'
 import styles from '@styles/layouts'
 
-@inject('user')
+@inject('_GV_', 'user')
 @observer
 export default class User extends Component {
   static propTypes = {
+    _GV_: PropTypes.shape({
+      drawerChange: PropTypes.func.isRequired
+    }).isRequired,
     user: PropTypes.shape({
       name: PropTypes.string.isRequired,
       avatar: PropTypes.string.isRequired,
       isLogin: PropTypes.bool.isRequired
-    }).isRequired,
-    onChange: PropTypes.func.isRequired
-  }
-  handleClick = () => {
-    this.props.onChange()
+    }).isRequired
   }
   render () {
+    const { drawerChange } = this.props._GV_
     const { name, avatar, isLogin } = this.props.user
     return isLogin
       ? <figure className={styles['ignore-user']}>
@@ -28,7 +28,7 @@ export default class User extends Component {
       </figure>
       : <Link
         to="/login"
-        onClick={this.handleClick}
+        onClick={drawerChange}
         className={styles['ignore-login']}
       >
         <Icon type="user" color="#1890ff" size="30" />

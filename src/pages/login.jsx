@@ -6,7 +6,7 @@ import { Button, InputItem, Toast } from 'antd-mobile'
 import $http from '@api'
 import styles from '@styles/login'
 
-@inject('user')
+@inject('_GV_', 'user')
 @observer
 export default class Login extends Component {
   constructor (props) {
@@ -15,6 +15,9 @@ export default class Login extends Component {
   }
 
   static propTypes = {
+    _GV_: PropTypes.shape({
+      setPath: PropTypes.func.isRequired
+    }).isRequired,
     user: PropTypes.shape({
       isLogin: PropTypes.bool.isRequired,
       setUserInfo: PropTypes.func.isRequired
@@ -29,6 +32,7 @@ export default class Login extends Component {
 
   componentDidMount () {
     this.inputRef.focus()
+    this.props._GV_.setPath('login')
   }
 
   handleInput = value => {
