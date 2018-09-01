@@ -26,7 +26,12 @@ module.exports = function (config, env) {
   if (env === 'production') {
     let main = config.entry.slice()
     let vendors = Object.keys(dependencies)
-    // 按需加载的依赖应该剔除
+    /*
+      按需加载的依赖应该剔除,
+      懒加载中也使用到的组件，会被提取到main中
+      由于main和vendors在首次使用时同时加载，
+      所以不会重复打包，也不会影响使用
+    */
     // vendors.splice(vendors.indexOf('antd-mobile'), 1)
     config.entry = { vendors, main }
     config.plugins.push(
@@ -36,6 +41,9 @@ module.exports = function (config, env) {
         minChunks: 2 // 三方库在逻辑代码中被调用两次(数字可以自定义)，将公共的代码提取出来
       })
     )
+    // 查看webpack输入文件交互式可缩放树形图，选装依赖webpack-bundle-analyzer
+    // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+    // config.plugins.push(new BundleAnalyzerPlugin())
   }
 
   /* stylus config start */
