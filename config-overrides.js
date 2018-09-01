@@ -26,11 +26,10 @@ module.exports = function (config, env) {
   // 提取公共模块
   if (env === 'production') {
     let main = config.entry.slice()
-    config.entry = {
-      // 尽可能的包含组件中的依赖，例如：antd依赖immutable，需将immutable提取
-      vendors: Object.keys(dependencies).concat(['react-router', 'immutable']),
-      main
-    }
+    let vendors = Object.keys(dependencies)
+    // 按需加载的依赖应该剔除
+    vendors.splice(vendors.indexOf('antd'), 1)
+    config.entry = { vendors, main }
     config.plugins.push(
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendors',
@@ -54,9 +53,10 @@ module.exports = function (config, env) {
     loader: require.resolve('postcss-loader'),
     options: {
       ident: 'postcss',
+      sourceMap: process.env.GENERATE_SOURCEMAP !== 'false',
       plugins: () => [
         require('postcss-flexbugs-fixes'),
-        autoprefixer({
+        require('autoprefixer')({
           browsers: [
             '>1%',
             'last 4 versions',
