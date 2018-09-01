@@ -1,7 +1,11 @@
 {
-  "login.js": "static/js/login.a1f22959.chunk.js",
-  "main.css": "static/css/main.3595889f.css",
-  "main.js": "static/js/main.2052fd38.js",
+  "login.js": "static/js/login.06d30845.chunk.js",
+  "login.js.map": "static/js/login.06d30845.chunk.js.map",
+  "main.css": "static/css/main.e20591e0.css",
+  "main.css.map": "static/css/main.e20591e0.css.map",
+  "main.js": "static/js/main.e3146e52.js",
+  "main.js.map": "static/js/main.e3146e52.js.map",
   "static\\media\\logo.svg": "static/media/logo.8bd8b5c5.svg",
-  "vendors.js": "static/js/vendors.3857431d.js"
+  "vendors.js": "static/js/vendors.bb6858b0.js",
+  "vendors.js.map": "static/js/vendors.bb6858b0.js.map"
 }
