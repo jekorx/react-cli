@@ -15,6 +15,7 @@ export default class Login extends Component {
   }
 
   static propTypes = {
+    location: PropTypes.object,
     _GV_: PropTypes.shape({
       setPath: PropTypes.func.isRequired
     }).isRequired,
@@ -31,6 +32,7 @@ export default class Login extends Component {
   }
 
   componentDidMount () {
+    console.log(this.props.location)
     this.inputRef.focus()
     this.props._GV_.setPath('login')
   }

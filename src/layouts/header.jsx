@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
+import { Link } from 'react-router-dom'
 import { NavBar } from 'antd-mobile'
 import PropTypes from 'prop-types'
 import Icon from '@components/icon'
@@ -23,7 +24,11 @@ export default class Header extends Component {
         icon={<Icon type="menu" size="20" />}
         onLeftClick={drawerChange}
         className={styles['ignore-header']}
-        rightContent={<Icon type="release" color="#1890ff" size="20" />}
+        rightContent={
+          <Link to="/create">
+            <Icon type="release" color="#1890ff" size="20" />
+          </Link>
+        }
       >
         <Logo />
         <span style={{ paddingRight: 45 }}>{title}</span>

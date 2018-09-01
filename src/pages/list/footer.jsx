@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import styles from '@styles/list'
 
 export default class Footer extends PureComponent {
   static propTypes = {
@@ -8,7 +9,7 @@ export default class Footer extends PureComponent {
   render () {
     const { loading } = this.props
     return (
-      <div style={{ padding: 30, textAlign: 'center' }}>
+      <div className={styles.loading}>
         {loading ? 'Loading...' : 'Loaded'}
       </div>
     )

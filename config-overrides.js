@@ -26,11 +26,15 @@ module.exports = function (config, env) {
   // 生产环境提取公共模块
   if (env === 'production') {
     let main = config.entry.slice()
-    config.entry = {
-      // 尽可能的包含组件中的依赖，例如：antd依赖immutable，需将immutable提取
-      vendors: Object.keys(dependencies).concat(['react-router']),
-      main
-    }
+    let vendors = Object.keys(dependencies)
+    /*
+      按需加载的依赖应该剔除,
+      懒加载中也使用到的组件，会被提取到main中
+      由于main和vendors在首次使用时同时加载，
+      所以不会重复打包，也不会影响使用
+    */
+    vendors.splice(vendors.indexOf('antd-mobile'), 1)
+    config.entry = { vendors, main }
     config.plugins.push(
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendors',
@@ -38,6 +42,9 @@ module.exports = function (config, env) {
         minChunks: 2 // 三方库在逻辑代码中被调用两次(数字可以自定义)，将公共的代码提取出来
       })
     )
+    // 查看webpack输入文件交互式可缩放树形图，选装依赖webpack-bundle-analyzer
+    // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+    // config.plugins.push(new BundleAnalyzerPlugin())
   }
 
   /* stylus config start */

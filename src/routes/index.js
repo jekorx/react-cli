@@ -15,6 +15,8 @@ const LoadWrapper = importComponent => {
 }
 // 懒加载页面
 const Login = LoadWrapper(() => import(/* webpackChunkName: "login" */'@pages/login'))
+const Write = LoadWrapper(() => import(/* webpackChunkName: "write" */'@pages/write'))
+const Message = LoadWrapper(() => import(/* webpackChunkName: "message" */'@pages/message'))
 const NoMatch = () => <Redirect to="/all" />
 // 路由列表
 export const routes = [
@@ -25,6 +27,9 @@ export const routes = [
   { path: '/share', component: List, title: '分享' },
   { path: '/ask', component: List, title: '问答' },
   { path: '/job', component: List, title: '招聘' },
+  { path: '/create', component: Write, isAuth: true, title: '发布话题' },
+  { path: '/edit', component: Write, isAuth: true, title: '编辑话题' },
+  { path: '/message', component: Message, isAuth: true, title: '消息' },
   { component: NoMatch }
 ]
 // 路由页面，跟页面需传入路由表routes数组，子页面需传入props的routes
@@ -35,6 +40,12 @@ export class RouteViews extends Component {
 
   render () {
     const { routes } = this.props
+    const render = (props, route) => (
+      <route.component
+        {...props}
+        routes={route.routes}
+      />
+    )
     return (
       <Switch>
         {routes.map(route => {
@@ -43,21 +54,20 @@ export class RouteViews extends Component {
               key={route.path}
               path={route.path}
               exact={route.exact}
-              render={props =>
-                <route.component
-                  {...props}
-                  routes={route.routes}
-                />
-              }
+              render={props => (
+                route.isAuth
+                  ? <Redirect
+                    to={{
+                      pathname: '/login',
+                      state: { from: props.location }
+                    }}
+                  />
+                  : render(props, route)
+              )}
             />
             : <Route
               key="404"
-              render={props =>
-                <route.component
-                  {...props}
-                  routes={route.routes}
-                />
-              }
+              render={props => render(props, route)}
             />
         })}
       </Switch>

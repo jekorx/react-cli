@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Tag from '@components/tag'
 import styles from '@styles/list'
 import { getTimeInfo } from '@utils'
 
-export default class Item extends Component {
+export default class Item extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired
   }

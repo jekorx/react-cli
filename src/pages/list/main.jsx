@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
-import { ListView } from 'antd-mobile'
+import { PullToRefresh, ListView } from 'antd-mobile'
 import Item from './item'
 import Footer from './footer'
 import $http from '@api'
@@ -24,15 +24,17 @@ export default class Main extends Component {
   state = {
     dataSource: new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2
-    }),
-    list: [],
+    }), // listview数据源
+    list: [], // 加载后数据存放
     loading: true,
+    refreshing: false,
     hasMore: true,
     pageNo: 1,
     pageSize: 7,
     tab: '',
     height: (document.documentElement.clientHeight || document.body.clientHeight) - 45
   }
+  // 首次加载根据类型请求数据
   componentDidMount () {
     const { pathname } = this.props.location
     const tab = pathname.substr(1) || 'all'
@@ -41,7 +43,7 @@ export default class Main extends Component {
       this.queryData()
     })
   }
-
+  // 获取数据
   async queryData () {
     this.setState({
       loading: true
@@ -56,39 +58,48 @@ export default class Main extends Component {
           dataSource: dataSource.cloneWithRows(list),
           list,
           pageNo: pageNo + 1,
-          loading: false
+          loading: false,
+          refreshing: false
         })
       } else {
         this.setState({
-          hasMore: false
+          loading: false,
+          hasMore: false,
+          refreshing: false
         })
       }
     }
   }
-
-  onEndReached = () => {
+  // 加载更多
+  handleEndReached = () => {
     const { loading, hasMore } = this.state
     if (loading && !hasMore) {
       return
     }
     this.queryData()
   }
+  // 下拉刷新
+  handleRefresh = () => {
+    this.setState({
+      list: [],
+      pageNo: 1,
+      refreshing: true
+    }, this.queryData)
+  }
 
   render () {
-    const { dataSource, loading, pageSize, height } = this.state
+    const { dataSource, loading, refreshing, pageSize, height } = this.state
     return (
       <ListView
         dataSource={dataSource}
         renderFooter={() => <Footer loading={loading} />}
         renderRow={rowData => <Item key={rowData.id} data={rowData} />}
         pageSize={pageSize}
-        style={{
-          height,
-          overflow: 'auto'
-        }}
-        scrollRenderAheadDistance={500}
-        onEndReached={this.onEndReached}
-        onEndReachedThreshold={100}
+        style={{ height, overflow: 'auto' }}
+        pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={this.handleRefresh} />}
+        scrollRenderAheadDistance={100}
+        onEndReached={this.handleEndReached}
+        onEndReachedThreshold={10}
       />
     )
   }
