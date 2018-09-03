@@ -1,8 +1,9 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Icon from '@components/icon'
+import Logout from './logout'
 import styles from '@styles/layouts'
 
 import User from './user'
@@ -16,18 +17,8 @@ export default class Menu extends Component {
       drawerChange: PropTypes.func.isRequired
     }).isRequired,
     user: PropTypes.shape({
-      isLogin: PropTypes.bool.isRequired,
-      setUserInfo: PropTypes.func.isRequired
+      isLogin: PropTypes.bool.isRequired
     }).isRequired
-  }
-  handleLogout = () => {
-    this.props.user.setUserInfo({
-      id: '',
-      name: '',
-      avatar: '',
-      isLogin: false
-    })
-    this.props._GV_.drawerChange()
   }
   render () {
     const { isLogin } = this.props.user
@@ -51,15 +42,7 @@ export default class Menu extends Component {
               className={styles['ignore-divider']}
             ></li>
         )}
-        {isLogin && <Fragment>
-          <li className={styles['ignore-divider']}></li>
-          <li onClick={this.handleLogout}>
-            <span className={styles['ignore-link']}>
-              <Icon type="logout" clsName={styles['ignore-icon']}/>
-              <span className={styles['ignore-title']}>退出</span>
-            </span>
-          </li>
-        </Fragment>}
+        {isLogin && <Logout />}
       </ul>
     )
   }

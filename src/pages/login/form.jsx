@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { Button, InputItem, Toast } from 'antd-mobile'
@@ -8,41 +7,31 @@ import styles from '@styles/login'
 
 @inject('_GV_', 'user')
 @observer
-export default class Login extends Component {
+export default class Main extends Component {
   constructor (props) {
     super(props)
     this.handleLogin = this.handleLogin.bind(this)
   }
-
   static propTypes = {
-    location: PropTypes.object,
     _GV_: PropTypes.shape({
-      setPath: PropTypes.func.isRequired
+      setTitle: PropTypes.func.isRequired
     }).isRequired,
     user: PropTypes.shape({
       isLogin: PropTypes.bool.isRequired,
       setUserInfo: PropTypes.func.isRequired
     }).isRequired
   }
-
   state = {
     accessToken: '',
-    loading: false,
-    isLogin: false
+    loading: false
   }
-
   componentDidMount () {
-    console.log(this.props.location)
-    this.inputRef.focus()
-    this.props._GV_.setPath('login')
+    this.inputRef && this.inputRef.focus()
+    this.props._GV_.setTitle({ path: '/login' })
   }
-
   handleInput = value => {
-    this.setState({
-      accessToken: value
-    })
+    this.setState({ accessToken: value })
   }
-
   async handleLogin (e) {
     e.preventDefault()
     const { accessToken } = this.state
@@ -50,17 +39,11 @@ export default class Login extends Component {
       Toast.fail('请输入Access Token！')
       return false
     }
-    this.setState({
-      isLogin: true
-    })
     let res = await $http.post('accesstoken', {
       accesstoken: accessToken
     })
     if (res.success) {
-      this.setState({
-        accessToken: '',
-        isLogin: false
-      })
+      this.setState({ accessToken: '' })
       this.props.user.setUserInfo({
         id: res.id,
         name: res.loginname,
@@ -69,13 +52,10 @@ export default class Login extends Component {
       })
     }
   }
-
   render () {
-    const { isLogin } = this.props.user
     const { accessToken, loading } = this.state
-    return isLogin
-      ? <Redirect to="/" />
-      : <form className={styles.form}>
+    return (
+      <form className={styles.form}>
         <InputItem
           placeholder="Access Token"
           className={styles['ignore-input']}
@@ -91,5 +71,6 @@ export default class Login extends Component {
           onClick={this.handleLogin}
         >登录</Button>
       </form>
+    )
   }
 }

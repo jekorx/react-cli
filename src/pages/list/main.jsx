@@ -15,7 +15,7 @@ export default class Main extends Component {
   }
   static propTypes = {
     _GV_: PropTypes.shape({
-      setPath: PropTypes.func.isRequired
+      setTitle: PropTypes.func.isRequired
     }).isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired
@@ -38,7 +38,7 @@ export default class Main extends Component {
   componentDidMount () {
     const { pathname } = this.props.location
     const tab = pathname.substr(1) || 'all'
-    this.props._GV_.setPath(tab)
+    this.props._GV_.setTitle({ path: pathname })
     this.setState({ tab }, () => {
       this.queryData()
     })
