@@ -57,8 +57,8 @@ module.exports = function (config, env) {
       viewportHeight: 1334, // (Number) The height of the viewport.
       unitPrecision: 3, // (Number) The decimal numbers to allow the REM units to grow to.
       viewportUnit: 'vw', // (String) Expected units.
-      // 排除UI组件前缀 antd-mobile 为 .am
-      selectorBlackList: ['.ignore', '.hairlines', '.am'], // (Array) The selectors to ignore and leave as px.
+      // 排除UI组件前缀 antd-mobile 为 .am，markdown-css前缀 .markdown
+      selectorBlackList: ['.ignore', '.hairlines', '.am', '.markdown'], // (Array) The selectors to ignore and leave as px.
       minPixelValue: 1, // (Number) Set the minimum pixel value to replace.
       mediaQuery: false // (Boolean) Allow px to be converted in media queries.
     }),

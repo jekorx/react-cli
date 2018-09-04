@@ -2,14 +2,15 @@ import React, { Component, Fragment } from 'react'
 import { routes, RouteViews } from '@routes'
 import Header from './header'
 import Left from './left'
+import styles from '@styles/layouts'
 
-export default class DftLayout extends Component {
+export default class Main extends Component {
   render () {
     return (
       <Fragment>
         <Header />
         <Left />
-        <div style={{ paddingTop: 45 }}>
+        <div className={styles['ignore-content']}>
           <RouteViews routes={routes} />
         </div>
       </Fragment>

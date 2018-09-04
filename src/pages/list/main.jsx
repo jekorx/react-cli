@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import { PullToRefresh, ListView } from 'antd-mobile'
+import BackTop from '@components/backtop'
 import Item from './item'
 import Footer from './footer'
 import $http from '@api'
@@ -32,6 +33,7 @@ export default class Main extends Component {
     pageNo: 1,
     pageSize: 7,
     tab: '',
+    showBackTop: false,
     height: (document.documentElement.clientHeight || document.body.clientHeight) - 45
   }
   // 首次加载根据类型请求数据
@@ -86,21 +88,41 @@ export default class Main extends Component {
       refreshing: true
     }, this.queryData)
   }
-
+  handleScroll = e => {
+    this.setState({
+      showBackTop: e.target.scrollTop > 200
+    })
+  }
+  handleBackTop = () => {
+    this.setState({
+      showBackTop: false
+    }, () => {
+      this.listViewRef.scrollTo(0)
+    })
+  }
   render () {
-    const { dataSource, loading, refreshing, pageSize, height } = this.state
+    const { dataSource, loading, refreshing, pageSize, height, showBackTop } = this.state
     return (
-      <ListView
-        dataSource={dataSource}
-        renderFooter={() => <Footer loading={loading} />}
-        renderRow={rowData => <Item key={rowData.id} data={rowData} />}
-        pageSize={pageSize}
-        style={{ height, overflow: 'auto' }}
-        pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={this.handleRefresh} />}
-        scrollRenderAheadDistance={200}
-        onEndReached={this.handleEndReached}
-        onEndReachedThreshold={50}
-      />
+      <Fragment>
+        <ListView
+          ref={e => { this.listViewRef = e }}
+          dataSource={dataSource}
+          renderFooter={() => <Footer loading={loading} />}
+          renderRow={rowData => <Item key={rowData.id} data={rowData} />}
+          pageSize={pageSize}
+          style={{ height, overflow: 'auto' }}
+          pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={this.handleRefresh} />}
+          scrollRenderAheadDistance={200}
+          onScroll={this.handleScroll}
+          scrollEventThrottle={800}
+          onEndReached={this.handleEndReached}
+          onEndReachedThreshold={50}
+        />
+        <BackTop
+          show={showBackTop}
+          handleClick={this.handleBackTop}
+        />
+      </Fragment>
     )
   }
 }

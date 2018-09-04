@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styles from '@styles/components'
 
@@ -11,20 +11,25 @@ const types = {
   dev: '客户端测试'
 }
 
-export default class Item extends Component {
+export default class Item extends PureComponent {
   static propTypes = {
     good: PropTypes.bool.isRequired,
     top: PropTypes.bool.isRequired,
-    tab: PropTypes.string
+    tab: PropTypes.string,
+    clsName: PropTypes.string
   }
   render () {
-    const { good, top, tab } = this.props
+    const { good, top, tab, clsName } = this.props
     let type = tab
     if (top) type = 'top'
     if (good) type = 'good'
     return (
       <span
-        className={[styles.tag, (top || good) ? styles['tab-hightlight'] : ''].join(' ')}
+        className={[
+          styles.tag,
+          clsName,
+          (top || good) ? styles['tab-hightlight'] : ''
+        ].join(' ')}
       >{types[type]}</span>
     )
   }
