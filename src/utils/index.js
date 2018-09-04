@@ -1,3 +1,4 @@
+// 时间戳转换
 export const getTimeInfo = str => {
   if (!str) return ''
   const date = new Date(str)
@@ -9,4 +10,26 @@ export const getTimeInfo = str => {
   if (time / 86400000 < 31) return parseInt(time / 86400000, 10) + '天前'
   if (time / 2592000000 < 12) return parseInt(time / 2592000000, 10) + '月前'
   return parseInt(time / 31536000000, 10) + '年前'
+}
+// 存储cookie
+export const setCookie = (key, value, days = 30) => {
+  let d = new Date()
+  d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000))
+  let expires = `; expires=${d.toGMTString()}`
+  document.cookie = `${key}=${value}${expires}`
+}
+// 获取cookie
+export const getCookie = key => {
+  let reg = new RegExp(`(^| )${key}=([^;]*)(;|$)`)
+  let arr = document.cookie.match(reg)
+  let val = null
+  if (arr && arr.length > 2) {
+    val = arr[2]
+  }
+  return val
+}
+// 删除cookie
+export const removeCookie = key => {
+  let value = getCookie(key)
+  setCookie(key, value, -1)
 }

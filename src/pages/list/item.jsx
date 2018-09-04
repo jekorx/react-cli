@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import Tag from '@components/tag'
 import styles from '@styles/list'
 import { getTimeInfo } from '@utils'
@@ -10,8 +11,9 @@ export default class Item extends PureComponent {
   }
   render () {
     const { data } = this.props
+    const path = `/topic/${data.id}`
     return (
-      <div className={styles.list}>
+      <Link to={path} className={styles.list}>
         <div className={styles.top}>
           <Tag
             good={data.good}
@@ -44,7 +46,7 @@ export default class Item extends PureComponent {
             </p>
           </div>
         </div>
-      </div>
+      </Link>
     )
   }
 }

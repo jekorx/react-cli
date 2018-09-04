@@ -1,14 +1,14 @@
 import { observable, action } from 'mobx'
+import { setCookie, getCookie, removeCookie } from '@utils'
+
+// 保存用户信息的cookie名
+const USERINFOCOOKIE = '__UTOKEN__'
 
 export default class User {
   constructor () {
     // 初始化时获取cookie中保存的用户信息，加载到mobx
-    let name = '__UTOKEN__'
-    let reg = new RegExp(`(^| )${name}=([^;]*)(;|$)`)
-    let arr = document.cookie.match(reg)
-    let val
-    if (arr && arr.length > 2) {
-      val = arr[2]
+    let val = getCookie(USERINFOCOOKIE)
+    if (val) {
       val = JSON.parse(unescape(val))
       this.setUserInfo(val)
     }
@@ -28,7 +28,7 @@ export default class User {
     this.isLogin = isLogin
     let info = { id, name, avatar, isLogin }
     info = escape(JSON.stringify(info))
-    document.cookie = `__UTOKEN__=${info}`
+    setCookie(USERINFOCOOKIE, info)
   }
   // 清空用户信息，包括cookie
   @action.bound clearUserInfo () {
@@ -36,17 +36,6 @@ export default class User {
     this.name = ''
     this.avatar = ''
     this.isLogin = false
-    let name = '__UTOKEN__'
-    let reg = new RegExp(`(^| )${name}=([^;]*)(;|$)`)
-    let arr = document.cookie.match(reg)
-    let val
-    if (arr && arr.length > 2) {
-      val = arr[2]
-    }
-    if (val) {
-      let exp = new Date()
-      exp.setTime(exp.getTime() - 1)
-      document.cookie = `__UTOKEN__=${val};expires=${exp.toGMTString()}`
-    }
+    removeCookie(USERINFOCOOKIE)
   }
 }

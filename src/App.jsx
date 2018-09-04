@@ -4,6 +4,7 @@ import { Provider } from 'mobx-react'
 import { hot } from 'react-hot-loader'
 import store from '@store'
 import Layouts from '@layouts'
+import '@styles/global.css'
 import '@styles'
 
 const baseName = process.env.PUBLIC_URL || '/'

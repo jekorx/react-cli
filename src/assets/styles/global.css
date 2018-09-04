@@ -1,0 +1,14 @@
+html,
+body,
+#root {
+  height: 100%;
+  background-color: #FFF !important
+}
+.am-icon-loading {
+  animation-name: rotate
+}
+@keyframes rotate {
+  to {
+    transform: rotate(1turn)
+  }
+}

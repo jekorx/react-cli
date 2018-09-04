@@ -97,9 +97,9 @@ export default class Main extends Component {
         pageSize={pageSize}
         style={{ height, overflow: 'auto' }}
         pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={this.handleRefresh} />}
-        scrollRenderAheadDistance={100}
+        scrollRenderAheadDistance={200}
         onEndReached={this.handleEndReached}
-        onEndReachedThreshold={10}
+        onEndReachedThreshold={50}
       />
     )
   }

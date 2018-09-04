@@ -31,7 +31,7 @@ export default class Header extends Component {
         }
       >
         <Logo />
-        <span style={{ paddingRight: 45 }}>{title}</span>
+        {title && <span style={{ paddingRight: 45 }}>{title}</span>}
       </NavBar>
     )
   }

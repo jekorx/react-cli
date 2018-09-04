@@ -1,9 +1,10 @@
 {
-  "login.js": "static/js/login.309e7f84.chunk.js",
-  "main.css": "static/css/main.51a76156.css",
-  "main.js": "static/js/main.411010b3.js",
-  "message.js": "static/js/message.94f48dee.chunk.js",
+  "login.js": "static/js/login.93c7101c.chunk.js",
+  "main.css": "static/css/main.a56f97a2.css",
+  "main.js": "static/js/main.3d319c6e.js",
+  "message.js": "static/js/message.157792d0.chunk.js",
   "static\\media\\logo.svg": "static/media/logo.8bd8b5c5.svg",
-  "vendors.js": "static/js/vendors.c1527430.js",
-  "write.js": "static/js/write.7a8a3aa7.chunk.js"
+  "topic.js": "static/js/topic.91d7a1dc.chunk.js",
+  "vendors.js": "static/js/vendors.f86f0a18.js",
+  "write.js": "static/js/write.18cf3b21.chunk.js"
 }

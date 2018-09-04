@@ -10,7 +10,7 @@ export default class Footer extends PureComponent {
     const { loading } = this.props
     return (
       <div className={styles.loading}>
-        {loading ? 'Loading...' : 'Loaded'}
+        {loading ? '加载中...' : '加载完成'}
       </div>
     )
   }
