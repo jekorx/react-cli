@@ -19,14 +19,16 @@ export default class User {
   @observable name = ''
   @observable avatar = ''
   @observable isLogin = false
+  @observable accessToken = false
 
   // 设置用户信息，保存到cookie
-  @action.bound setUserInfo ({ id, name, avatar, isLogin }) {
+  @action.bound setUserInfo ({ id, name, avatar, isLogin, accessToken }) {
     this.id = id
     this.name = name
     this.avatar = avatar
     this.isLogin = isLogin
-    let info = { id, name, avatar, isLogin }
+    this.accessToken = accessToken
+    let info = { id, name, avatar, isLogin, accessToken }
     info = escape(JSON.stringify(info))
     setCookie(USERINFOCOOKIE, info)
   }
@@ -36,6 +38,7 @@ export default class User {
     this.name = ''
     this.avatar = ''
     this.isLogin = false
+    this.accessToken = ''
     removeCookie(USERINFOCOOKIE)
   }
 }

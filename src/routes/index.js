@@ -17,6 +17,7 @@ const LoadWrapper = importComponent => {
 // 懒加载页面
 const Login = LoadWrapper(() => import(/* webpackChunkName: "login" */'@pages/login'))
 const Topic = LoadWrapper(() => import(/* webpackChunkName: "topic" */'@pages/topic'))
+const User = LoadWrapper(() => import(/* webpackChunkName: "user" */'@pages/user'))
 const Write = LoadWrapper(() => import(/* webpackChunkName: "write" */'@pages/write'))
 const Message = LoadWrapper(() => import(/* webpackChunkName: "message" */'@pages/message'))
 // 路由列表
@@ -29,6 +30,7 @@ export const routes = [
   { path: '/ask', component: List, title: '问答' },
   { path: '/job', component: List, title: '招聘' },
   { path: '/topic/:id', component: Topic, title: '详细' },
+  { path: '/user/:name', component: User, title: '用户' },
   { path: '/create', component: Write, isAuth: true, title: '发布话题' },
   { path: '/edit', component: Write, isAuth: true, title: '编辑话题' },
   { path: '/message', component: Message, isAuth: true, title: '消息' }

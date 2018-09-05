@@ -8,6 +8,14 @@
     "title": "登录"
   },
   {
+    "path": "/topic",
+    "title": "详细"
+  },
+  {
+    "path": "/user",
+    "title": "用户"
+  },
+  {
     "path": "/create",
     "title": "发布话题"
   },

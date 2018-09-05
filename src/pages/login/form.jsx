@@ -43,12 +43,12 @@ export default class Main extends Component {
       accesstoken: accessToken
     })
     if (res.success) {
-      this.setState({ accessToken: '' })
       this.props.user.setUserInfo({
         id: res.id,
         name: res.loginname,
         avatar: res.avatar_url,
-        isLogin: true
+        isLogin: true,
+        accessToken
       })
     }
   }

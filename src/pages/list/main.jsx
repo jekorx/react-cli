@@ -88,11 +88,13 @@ export default class Main extends Component {
       refreshing: true
     }, this.queryData)
   }
+  // 滚动事件，控制返回顶部按钮显示隐藏
   handleScroll = e => {
     this.setState({
       showBackTop: e.target.scrollTop > 200
     })
   }
+  // 返回顶部
   handleBackTop = () => {
     this.setState({
       showBackTop: false

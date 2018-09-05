@@ -13,7 +13,7 @@ export default class Info extends Component {
     const { topic } = this.props
     return (
       <section className={styles.info}>
-        <Link to="/">
+        <Link to={`/user/${topic.author_id}`}>
           <span
             className={styles.avatar}
             style={{ backgroundImage: `url(${topic.author.avatar_url})` }}
