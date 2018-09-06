@@ -7,7 +7,7 @@ import BackTop from '@components/backtop'
 import Content from './content'
 import Replay from './replay'
 
-@inject('_GV_')
+@inject('_GV_', 'user')
 @observer
 export default class Main extends Component {
   constructor (props) {
@@ -17,6 +17,9 @@ export default class Main extends Component {
   static propTypes = {
     _GV_: PropTypes.shape({
       setTitle: PropTypes.func.isRequired
+    }).isRequired,
+    user: PropTypes.shape({
+      accessToken: PropTypes.string.isRequired
     }).isRequired,
     match: PropTypes.shape({
       params: PropTypes.shape({
@@ -29,7 +32,8 @@ export default class Main extends Component {
     showBackTop: false,
     refreshing: false,
     dataSource: new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2
+      // 当id改变时表示该行数据发生变化
+      rowHasChanged: (row1, row2) => row1.id !== row2.id
     }), // listview数据源
     pageSize: 7, // 每次渲染条数
     height: (document.documentElement.clientHeight || document.body.clientHeight) - 45
@@ -45,10 +49,11 @@ export default class Main extends Component {
   async queryData () {
     const {
       match: { params },
-      _GV_: { setTitle }
+      _GV_: { setTitle },
+      user: { accessToken }
     } = this.props
     setTitle({ title: '' })
-    let { success, data } = await $http.get(`topic/${params.id}?mdrender=true`)
+    let { success, data } = await $http.get(`topic/${params.id}?mdrender=true&accesstoken=${accessToken}`)
     if (success) {
       this.setState({
         topic: data,
@@ -92,13 +97,14 @@ export default class Main extends Component {
   }
   render () {
     const { topic, showBackTop, dataSource, height, pageSize, refreshing } = this.state
+    const { accessToken } = this.props.user
     return (
       <Fragment>
         <ListView
           ref={e => { this.listViewRef = e }}
           dataSource={dataSource}
-          renderHeader={() => <Content topic={topic} />}
-          renderRow={rowData => <Replay key={rowData.id} data={rowData} />}
+          renderHeader={() => <Content topic={topic} atk={accessToken} />}
+          renderRow={rowData => <Replay key={rowData.id} data={rowData} atk={accessToken} />}
           style={{ height, overflow: 'auto' }}
           pageSize={pageSize}
           pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={this.handleRefresh} />}

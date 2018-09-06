@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styles from '@styles/components'
 
-const types = {
+export const types = {
   good: '精华',
   top: '置顶',
   ask: '问答',
@@ -13,8 +13,8 @@ const types = {
 
 export default class Item extends PureComponent {
   static propTypes = {
-    good: PropTypes.bool.isRequired,
-    top: PropTypes.bool.isRequired,
+    good: PropTypes.bool,
+    top: PropTypes.bool,
     tab: PropTypes.string,
     clsName: PropTypes.string
   }

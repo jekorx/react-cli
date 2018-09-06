@@ -1,30 +1,29 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { inject, observer } from 'mobx-react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import InnerHTML from './innerhtml'
 import styles from '@styles/topic'
 import Icon from '@components/icon'
-import { getTimeInfo } from '@utils'
+import { getTimeInfo, checkLogin } from '@utils'
 import $http from '@api'
 
-@inject('user')
-@observer
-export default class Replay extends Component {
+class Replay extends PureComponent {
   static propTypes = {
     data: PropTypes.object,
-    user: PropTypes.shape({
-      accessToken: PropTypes.string.isRequired
-    }).isRequired
+    atk: PropTypes.string.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   }
   state = {
     up: false,
     count: 0
   }
   handleUp = () => {
-    const { data: { id }, user: { accessToken } } = this.props
+    const { data: { id }, atk, history, location } = this.props
+    // 检查是否登录
+    if (!checkLogin(atk, history, location)) return
     $http.post(`reply/${id}/ups `, {
-      accesstoken: accessToken
+      accesstoken: atk
     }).then(({ success, action }) => {
       if (success) {
         this.setState({
@@ -35,7 +34,10 @@ export default class Replay extends Component {
     })
   }
   handleReply = () => {
-
+    const { data: { id }, atk, history, location } = this.props
+    // 检查是否登录
+    if (!checkLogin(atk, history, location)) return
+    console.log(id)
   }
   render () {
     const { data } = this.props
@@ -75,3 +77,5 @@ export default class Replay extends Component {
     )
   }
 }
+
+export default withRouter(Replay)

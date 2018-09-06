@@ -33,3 +33,13 @@ export const removeCookie = key => {
   let value = getCookie(key)
   setCookie(key, value, -1)
 }
+// 检查是否登录
+export const checkLogin = (atk, history, location) => {
+  if (!atk) {
+    history.push('/login', {
+      from: location
+    })
+    return false
+  }
+  return true
+}

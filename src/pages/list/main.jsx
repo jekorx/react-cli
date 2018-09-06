@@ -24,7 +24,8 @@ export default class Main extends Component {
   }
   state = {
     dataSource: new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2
+      // 当id改变时表示该行数据发生变化
+      rowHasChanged: (row1, row2) => row1.id !== row2.id
     }), // listview数据源
     list: [], // 加载后数据存放
     loading: true,
@@ -114,11 +115,11 @@ export default class Main extends Component {
           pageSize={pageSize}
           style={{ height, overflow: 'auto' }}
           pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={this.handleRefresh} />}
-          scrollRenderAheadDistance={200}
+          scrollRenderAheadDistance={300}
           onScroll={this.handleScroll}
           scrollEventThrottle={800}
           onEndReached={this.handleEndReached}
-          onEndReachedThreshold={50}
+          onEndReachedThreshold={100}
         />
         <BackTop
           show={showBackTop}

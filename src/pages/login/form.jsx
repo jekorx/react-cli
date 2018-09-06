@@ -37,7 +37,7 @@ export default class Main extends Component {
     const { accessToken } = this.state
     if (!accessToken) {
       Toast.fail('请输入Access Token！')
-      return false
+      return
     }
     let res = await $http.post('accesstoken', {
       accesstoken: accessToken
