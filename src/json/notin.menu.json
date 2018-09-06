@@ -16,10 +16,6 @@
     "title": "用户"
   },
   {
-    "path": "/create",
-    "title": "发布话题"
-  },
-  {
     "path": "/edit",
     "title": "编辑话题"
   }

@@ -1,0 +1,13 @@
+[
+  {},
+  {
+    "path": "/message",
+    "title": "消息",
+    "icon": "ring"
+  },
+  {
+    "path": "/about",
+    "title": "关于",
+    "icon": "info"
+  }
+]

@@ -21,7 +21,7 @@ class User extends Component {
   }
   handleGoLogin = () => {
     const { _GV_: { drawerChange }, history } = this.props
-    history.push('/login', {
+    history.replace('/login', {
       from: history.location
     })
     drawerChange()

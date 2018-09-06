@@ -36,7 +36,7 @@ export const removeCookie = key => {
 // 检查是否登录
 export const checkLogin = (atk, history) => {
   if (atk === '') {
-    history.push('/login', {
+    history.replace('/login', {
       from: history.location
     })
     return false

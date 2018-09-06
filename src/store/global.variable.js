@@ -1,16 +1,18 @@
 import { observable, action } from 'mobx'
 import menuData from '@src/json/menu'
-import notInMenuData from '@src/json/not.in.menu'
+import prevMenuData from '@src/json/prev.menu'
+import secondMenuData from '@src/json/second.menu'
+import notInMenuData from '@src/json/notin.menu'
 
 export default class GV {
   constructor () {
     const { pathname } = window.location
     this.path = pathname.substr(pathname.lastIndexOf('/'))
   }
-  // 路由，菜单中显示的和不在菜单中显示的
-  routes = [...menuData, ...notInMenuData].filter(r => r.path)
   // 菜单
-  menu = menuData
+  menu = [...prevMenuData, ...menuData, ...secondMenuData]
+  // 路由，菜单中显示的和不在菜单中显示的
+  routes = [...this.menu, ...notInMenuData].filter(r => r.path)
   // 标题
   @observable title = ''
   // 左侧抽屉菜单状态

@@ -40,11 +40,7 @@ export default class Main extends Component {
   }
   componentDidMount () {
     this.queryData()
-    // this.topicRef.addEventListener('scroll', this.handleScroll, true)
   }
-  /* componentWillUnmount () {
-    this.topicRef.removeEventListener('scroll', this.handleScroll)
-  } */
   // 加载数据
   async queryData () {
     const {
@@ -62,7 +58,13 @@ export default class Main extends Component {
       })
     }
   }
-  /* // 过渡滚动到顶部
+  /* componentDidMount () {
+    this.topicRef.addEventListener('scroll', this.handleScroll, true)
+  }
+  componentWillUnmount () {
+    this.topicRef.removeEventListener('scroll', this.handleScroll)
+  }
+  // 过渡滚动到顶部
   handleBackTop = () => {
     clearInterval(this.timer)
     this.timer = setInterval(() => {

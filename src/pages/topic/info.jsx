@@ -5,7 +5,7 @@ import { Button } from 'antd-mobile'
 import styles from '@styles/topic'
 import { getTimeInfo, checkLogin } from '@utils'
 import $http from '@api'
-import { types } from '@components/tag'
+import types from '@src/json/types'
 
 class Info extends PureComponent {
   static propTypes = {
@@ -49,8 +49,8 @@ class Info extends PureComponent {
           />
         </Link>
         <div className={styles.center}>
-          <span>{topic.author.loginname} · 发表于 {getTimeInfo(topic.create_at)} · 来自 {types[topic.tab]}</span>
-          <span>{topic.visit_count} 次浏览</span>
+          <span>{topic.author.loginname} · 发布于 {getTimeInfo(topic.create_at)}</span>
+          <span>来自 {types[topic.tab]} · {topic.visit_count} 次浏览</span>
         </div>
         <div className={styles['collect-wrap']}>
           <Button

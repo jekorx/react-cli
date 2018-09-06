@@ -1,15 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import styles from '@styles/components'
-
-export const types = {
-  good: '精华',
-  top: '置顶',
-  ask: '问答',
-  share: '分享',
-  job: '招聘',
-  dev: '客户端测试'
-}
+import types from '@src/json/types'
 
 export default class Item extends PureComponent {
   static propTypes = {

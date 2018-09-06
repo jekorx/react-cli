@@ -17,6 +17,7 @@ export default class Left extends Component {
     const { drawer, drawerChange } = this.props._GV_
     return (
       <Drawer
+        position="right"
         open={drawer}
         onOpenChange={drawerChange}
         sidebar={<Menu />}

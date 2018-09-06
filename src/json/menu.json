@@ -23,16 +23,5 @@
     "path": "/job",
     "title": "招聘",
     "icon": "users"
-  },
-  {},
-  {
-    "path": "/message",
-    "title": "消息",
-    "icon": "ring"
-  },
-  {
-    "path": "/about",
-    "title": "关于",
-    "icon": "info"
   }
 ]
