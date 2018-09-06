@@ -19,7 +19,7 @@ export default class User {
   @observable name = ''
   @observable avatar = ''
   @observable isLogin = false
-  @observable accessToken = false
+  @observable accessToken = ''
 
   // 设置用户信息，保存到cookie
   @action.bound setUserInfo ({ id, name, avatar, isLogin, accessToken }) {

@@ -34,10 +34,10 @@ export const removeCookie = key => {
   setCookie(key, value, -1)
 }
 // 检查是否登录
-export const checkLogin = (atk, history, location) => {
-  if (!atk) {
+export const checkLogin = (atk, history) => {
+  if (atk === '') {
     history.push('/login', {
-      from: location
+      from: history.location
     })
     return false
   }

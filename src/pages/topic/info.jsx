@@ -11,7 +11,6 @@ class Info extends PureComponent {
   static propTypes = {
     topic: PropTypes.object.isRequired,
     atk: PropTypes.string.isRequired,
-    location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
   }
   state = {
@@ -23,9 +22,9 @@ class Info extends PureComponent {
     })
   }
   handleCollect = () => {
-    const { topic: { id }, atk, history, location } = this.props
+    const { topic: { id }, atk, history } = this.props
     // 检查是否登录
-    if (!checkLogin(atk, history, location)) return
+    if (!checkLogin(atk, history)) return
     const { isCollect } = this.state
     $http.post(`topic_collect/${isCollect ? 'de_collect ' : 'collect '}`, {
       accesstoken: atk,

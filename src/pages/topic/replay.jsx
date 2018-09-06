@@ -11,7 +11,6 @@ class Replay extends PureComponent {
   static propTypes = {
     data: PropTypes.object,
     atk: PropTypes.string.isRequired,
-    location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
   }
   state = {
@@ -24,9 +23,9 @@ class Replay extends PureComponent {
     })
   }
   handleUp = () => {
-    const { data: { id, is_uped: isUped }, atk, history, location } = this.props
+    const { data: { id, is_uped: isUped }, atk, history } = this.props
     // 检查是否登录
-    if (!checkLogin(atk, history, location)) return
+    if (!checkLogin(atk, history)) return
     $http.post(`reply/${id}/ups `, {
       accesstoken: atk
     }).then(({ success, action }) => {
@@ -39,9 +38,9 @@ class Replay extends PureComponent {
     })
   }
   handleReply = () => {
-    const { data: { id }, atk, history, location } = this.props
+    const { data: { id }, atk, history } = this.props
     // 检查是否登录
-    if (!checkLogin(atk, history, location)) return
+    if (!checkLogin(atk, history)) return
     console.log(id)
   }
   render () {
