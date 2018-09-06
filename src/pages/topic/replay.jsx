@@ -15,11 +15,16 @@ class Replay extends PureComponent {
     history: PropTypes.object.isRequired
   }
   state = {
-    up: false,
+    uped: false,
     count: 0
   }
+  componentDidMount () {
+    this.setState({
+      uped: this.props.data.is_uped
+    })
+  }
   handleUp = () => {
-    const { data: { id }, atk, history, location } = this.props
+    const { data: { id, is_uped: isUped }, atk, history, location } = this.props
     // 检查是否登录
     if (!checkLogin(atk, history, location)) return
     $http.post(`reply/${id}/ups `, {
@@ -27,8 +32,8 @@ class Replay extends PureComponent {
     }).then(({ success, action }) => {
       if (success) {
         this.setState({
-          up: action === 'up',
-          count: action === 'up' ? 1 : 0
+          uped: action === 'up',
+          count: isUped ? (action === 'down' ? -1 : 0) : (action === 'up' ? 1 : 0)
         })
       }
     })
@@ -41,12 +46,7 @@ class Replay extends PureComponent {
   }
   render () {
     const { data } = this.props
-    const { up, count } = this.state
-    const getType = () => {
-      if (up) return 'uped'
-      if (data.is_uped) return 'uped'
-      return 'up'
-    }
+    const { uped, count } = this.state
     return (
       <div className={styles.reply}>
         <section className={styles.user}>
@@ -63,7 +63,7 @@ class Replay extends PureComponent {
             </span>
             <span className={styles['reply-right']}>
               <Icon
-                type={getType()}
+                type={uped ? 'uped' : 'up'}
                 color="#333"
                 onClick={this.handleUp}
               />
