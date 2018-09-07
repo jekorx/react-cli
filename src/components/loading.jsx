@@ -1,10 +1,11 @@
 import React from 'react'
+import styles from '@styles/components'
 
 export default function Loading ({ error, pastDelay }) {
   if (error) {
-    return <div style={{ textAlign: 'center' }}>Error!</div>
+    return <div className={styles.error}></div>
   } else if (pastDelay) {
-    return <div style={{ textAlign: 'center' }}>Loading...</div>
+    return <div className={styles.loading}></div>
   } else {
     return null
   }
