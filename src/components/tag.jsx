@@ -12,9 +12,9 @@ export default class Item extends PureComponent {
   }
   render () {
     const { good, top, tab, clsName } = this.props
-    let type = tab
-    if (top) type = 'top'
-    if (good) type = 'good'
+    let type = types[tab]
+    if (top) type = '置顶'
+    if (good) type = '精华'
     return (
       <span
         className={[
@@ -22,7 +22,7 @@ export default class Item extends PureComponent {
           clsName,
           (top || good) ? styles['tab-hightlight'] : ''
         ].join(' ')}
-      >{types[type]}</span>
+      >{type}</span>
     )
   }
 }

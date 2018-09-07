@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
+import { Toast } from 'antd-mobile'
 import InnerHTML from '@components/innerhtml'
 import Icon from '@components/icon'
 import Comment from './comment'
@@ -35,12 +36,14 @@ class Replay extends PureComponent {
     if (!checkLogin(atk, history)) return
     $http.post(`reply/${id}/ups `, {
       accesstoken: atk
-    }).then(({ success, action }) => {
+    }).then(({ success, action, error_msg: errorMsg }) => {
       if (success) {
         this.setState({
           uped: action === 'up',
           count: isUped ? (action === 'down' ? -1 : 0) : (action === 'up' ? 1 : 0)
         })
+      } else {
+        Toast.fail(errorMsg, 2)
       }
     })
   }

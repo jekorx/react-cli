@@ -32,7 +32,7 @@ export default class Comment extends PureComponent {
   handleCommit = () => {
     const { content } = this.state
     if (!content) {
-      Toast.fail('请输入内容！')
+      Toast.fail('请输入回复内容！', 1)
       return
     }
     const { atk, topicId, replyId, handleSucc } = this.props
@@ -43,10 +43,8 @@ export default class Comment extends PureComponent {
       reply_id: replyId
     } : {})).then(({ success }) => {
       if (success) {
-        Toast.success('评论成功！')
-        setTimeout(() => {
-          handleSucc()
-        }, 3000)
+        Toast.success('回复成功！', 0)
+        setTimeout(handleSucc, 1000)
       }
     })
   }
@@ -56,6 +54,7 @@ export default class Comment extends PureComponent {
     return (
       <div className={styles.comment}>
         <textarea
+          placeholder="支持Markdown语法"
           className={styles.textarea}
           value={content}
           onChange={this.handleInput}

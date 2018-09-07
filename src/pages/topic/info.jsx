@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
-import { Button } from 'antd-mobile'
+import { Button, Toast } from 'antd-mobile'
 import styles from '@styles/topic'
 import { getTimeInfo, checkLogin } from '@utils'
 import $http from '@api'
@@ -29,11 +29,13 @@ class Info extends PureComponent {
     $http.post(`topic_collect/${isCollect ? 'de_collect ' : 'collect '}`, {
       accesstoken: atk,
       topic_id: id
-    }).then(({ success }) => {
+    }).then(({ success, error_msg: errorMsg }) => {
       if (success) {
         this.setState({
           isCollect: !isCollect
         })
+      } else {
+        Toast.fail(errorMsg, 2)
       }
     })
   }

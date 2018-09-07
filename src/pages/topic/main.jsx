@@ -1,15 +1,17 @@
 import React, { Component, Fragment } from 'react'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 import { ListView, PullToRefresh } from 'antd-mobile'
 import $http from '@api'
 import BackTop from '@components/backtop'
+import { checkLogin } from '@utils'
 import Content from './content'
 import Reply from './reply'
 
 @inject('_GV_', 'user')
 @observer
-export default class Main extends Component {
+class Main extends Component {
   constructor (props) {
     super(props)
     this.queryData = this.queryData.bind(this)
@@ -22,10 +24,9 @@ export default class Main extends Component {
       accessToken: PropTypes.string.isRequired
     }).isRequired,
     match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string.isRequired
-      }).isRequired
-    }).isRequired
+      params: PropTypes.object.isRequired
+    }).isRequired,
+    history: PropTypes.object.isRequired
   }
   state = {
     topic: {},
@@ -50,7 +51,7 @@ export default class Main extends Component {
       user: { accessToken }
     } = this.props
     setTitle({ title: '' })
-    let { success, data } = await $http.get(`topic/${params.id}?mdrender=true&accesstoken=${accessToken}`)
+    let { success, data } = await $http.get(`topic/${params.id}?accesstoken=${accessToken}`)
     if (success) {
       this.setState({
         topic: data,
@@ -101,6 +102,9 @@ export default class Main extends Component {
   }
   // 回复处理，rowId为-1时表示隐藏回复窗口
   handleReply = rowId => {
+    const { user: { accessToken }, history } = this.props
+    // 检查是否登录
+    if (!checkLogin(accessToken, history)) return
     let list = this.state.list.map((t, idx) => Object.assign({}, t, {
       showComment: idx === +rowId
     }))
@@ -155,3 +159,5 @@ export default class Main extends Component {
     )
   }
 }
+
+export default withRouter(Main)

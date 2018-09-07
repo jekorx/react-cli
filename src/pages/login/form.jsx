@@ -22,47 +22,44 @@ export default class Main extends Component {
     }).isRequired
   }
   state = {
-    accessToken: '',
     loading: false
   }
   componentDidMount () {
     this.inputRef && this.inputRef.focus()
     this.props._GV_.setTitle({ path: '/login' })
   }
-  handleInput = value => {
-    this.setState({ accessToken: value })
-  }
   async handleLogin (e) {
     e.preventDefault()
-    const { accessToken } = this.state
+    const accessToken = this.inputRef.state.value
     if (!accessToken) {
-      Toast.fail('请输入Access Token！')
+      Toast.fail('请输入Access Token！', 1)
       return
     }
     let res = await $http.post('accesstoken', {
       accesstoken: accessToken
     })
     if (res.success) {
-      this.props.user.setUserInfo({
-        id: res.id,
-        name: res.loginname,
-        avatar: res.avatar_url,
-        isLogin: true,
-        accessToken
-      })
+      Toast.success('登录成功！', 0)
+      setTimeout(() => {
+        this.props.user.setUserInfo({
+          id: res.id,
+          name: res.loginname,
+          avatar: res.avatar_url,
+          isLogin: true,
+          accessToken
+        })
+      }, 2000)
     }
   }
   render () {
-    const { accessToken, loading } = this.state
+    const { loading } = this.state
     return (
       <form className={styles.form}>
         <InputItem
+          ref={e => { this.inputRef = e }}
+          clear
           placeholder="Access Token"
           className={styles['ignore-input']}
-          ref={e => { this.inputRef = e }}
-          clear={true}
-          value={accessToken}
-          onChange={this.handleInput}
         />
         <Button
           type="primary"

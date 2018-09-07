@@ -32,7 +32,7 @@ export const routes = [
   { path: '/topic/:id', component: Topic, title: '详细' },
   { path: '/user/:name', component: User, title: '用户' },
   { path: '/create', component: Write, isAuth: true, title: '发布话题' },
-  { path: '/edit', component: Write, isAuth: true, title: '编辑话题' },
+  { path: '/edit/:id', component: Write, isAuth: true, title: '编辑话题' },
   { path: '/message', component: Message, isAuth: true, title: '消息' }
 ]
 
