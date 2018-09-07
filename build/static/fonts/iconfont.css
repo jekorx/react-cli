@@ -11,8 +11,7 @@
   font-style: normal;
   color: #000;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  vertical-align: middle
+  -moz-osx-font-smoothing: grayscale
 }
 .icon-back:before { content: "\e600" }
 .icon-share:before { content: "\e67e" }
