@@ -5,7 +5,7 @@ import { ListView, PullToRefresh } from 'antd-mobile'
 import $http from '@api'
 import BackTop from '@components/backtop'
 import Content from './content'
-import Replay from './replay'
+import Reply from './reply'
 
 @inject('_GV_', 'user')
 @observer
@@ -31,11 +31,12 @@ export default class Main extends Component {
     topic: {},
     showBackTop: false,
     refreshing: false,
+    list: [],
     dataSource: new ListView.DataSource({
       // 当id改变时表示该行数据发生变化
-      rowHasChanged: (row1, row2) => row1.id !== row2.id
+      rowHasChanged: (row1, row2) => (row1.id !== row2.id) || (row1.showComment !== row2.showComment)
     }), // listview数据源
-    pageSize: 7, // 每次渲染条数
+    pageSize: 14, // 每次渲染条数
     height: (document.documentElement.clientHeight || document.body.clientHeight) - 45
   }
   componentDidMount () {
@@ -54,6 +55,7 @@ export default class Main extends Component {
       this.setState({
         topic: data,
         refreshing: false,
+        list: data.replies,
         dataSource: this.state.dataSource.cloneWithRows(data.replies || [])
       })
     }
@@ -97,6 +99,15 @@ export default class Main extends Component {
       refreshing: true
     }, this.queryData)
   }
+  // 回复处理，rowId为-1时表示隐藏回复窗口
+  handleReply = rowId => {
+    let list = this.state.list.map((t, idx) => Object.assign({}, t, {
+      showComment: idx === +rowId
+    }))
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(list)
+    })
+  }
   render () {
     const { topic, showBackTop, dataSource, height, pageSize, refreshing } = this.state
     const { accessToken } = this.props.user
@@ -105,14 +116,36 @@ export default class Main extends Component {
         <ListView
           ref={e => { this.listViewRef = e }}
           dataSource={dataSource}
-          renderHeader={() => <Content topic={topic} atk={accessToken} />}
-          renderRow={rowData => <Replay key={rowData.id} data={rowData} atk={accessToken} />}
-          style={{ height, overflow: 'auto' }}
           pageSize={pageSize}
-          pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={this.handleRefresh} />}
+          style={{ height, overflow: 'auto' }}
           onScroll={this.handleScroll}
           scrollEventThrottle={800}
-          scrollRenderAheadDistance={200}
+          scrollRenderAheadDistance={400}
+          pullToRefresh={
+            <PullToRefresh
+              refreshing={refreshing}
+              onRefresh={this.handleRefresh}
+            />
+          }
+          renderHeader={() =>
+            <Content
+              topic={topic}
+              atk={accessToken}
+            />
+          }
+          renderRow={(rowData, sectionID, rowID) =>
+            <Reply
+              key={rowData.id}
+              rowId={+rowID}
+              data={rowData}
+              atk={accessToken}
+              topicId={topic.id}
+              author={topic.author && topic.author.loginname}
+              handleSucc={this.queryData}
+              handleReply={() => this.handleReply(rowID)}
+              handleCancel={() => this.handleReply(-1)}
+            />
+          }
         />
         <BackTop
           show={showBackTop}

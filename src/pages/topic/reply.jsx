@@ -1,15 +1,22 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from 'react-router-dom'
-import InnerHTML from './innerhtml'
-import styles from '@styles/topic'
+import InnerHTML from '@components/innerhtml'
 import Icon from '@components/icon'
+import Comment from './comment'
+import styles from '@styles/topic'
 import { getTimeInfo, checkLogin } from '@utils'
 import $http from '@api'
 
 class Replay extends PureComponent {
   static propTypes = {
     data: PropTypes.object,
+    rowId: PropTypes.number,
+    author: PropTypes.string,
+    topicId: PropTypes.string,
+    handleSucc: PropTypes.func,
+    handleReply: PropTypes.func,
+    handleCancel: PropTypes.func,
     atk: PropTypes.string.isRequired,
     history: PropTypes.object.isRequired
   }
@@ -37,17 +44,11 @@ class Replay extends PureComponent {
       }
     })
   }
-  handleReply = () => {
-    const { data: { id }, atk, history } = this.props
-    // 检查是否登录
-    if (!checkLogin(atk, history)) return
-    console.log(id)
-  }
   render () {
-    const { data } = this.props
+    const { data, rowId, atk, topicId, author, handleSucc, handleCancel, handleReply } = this.props
     const { uped, count } = this.state
     return (
-      <div className={styles.reply}>
+      <div id={data.id} className={styles.reply}>
         <section className={styles.user}>
           <Link to={`/user/${data.author.loginname}`}>
             <span
@@ -58,7 +59,10 @@ class Replay extends PureComponent {
           <div className={styles['reply-info']}>
             <span className={styles['reply-left']}>
               <span className={styles['reply-name']}>{data.author.loginname}</span>
-              <span>发表于：{getTimeInfo(data.create_at)}</span>
+              <a href={`#${data.id}`} className={styles.anchor}>
+                {rowId + 1} 楼 · {getTimeInfo(data.create_at)}
+              </a>
+              {data.author.loginname === author && <span className={styles['tag-author']}>作者</span>}
             </span>
             <span className={styles['reply-right']}>
               <Icon
@@ -67,11 +71,19 @@ class Replay extends PureComponent {
                 onClick={this.handleUp}
               />
               <span className={styles['up-count']}>{data.ups.length + count}</span>
-              <Icon type="reply" color="#333" onClick={this.handleReply} />
+              <Icon type="reply" color="#333" onClick={handleReply} />
             </span>
           </div>
         </section>
         <InnerHTML cnt={data.content} />
+        {data.showComment && <Comment
+          atk={atk}
+          topicId={topicId}
+          replyId={data.id}
+          replayName={data.author.loginname}
+          handleSucc={handleSucc}
+          handleCancel={handleCancel}
+        />}
       </div>
     )
   }

@@ -110,16 +110,25 @@ export default class Main extends Component {
         <ListView
           ref={e => { this.listViewRef = e }}
           dataSource={dataSource}
-          renderFooter={() => <Footer loading={loading} />}
-          renderRow={rowData => <Item key={rowData.id} data={rowData} />}
           pageSize={pageSize}
           style={{ height, overflow: 'auto' }}
-          pullToRefresh={<PullToRefresh refreshing={refreshing} onRefresh={this.handleRefresh} />}
-          scrollRenderAheadDistance={300}
-          onScroll={this.handleScroll}
           scrollEventThrottle={800}
+          onEndReachedThreshold={400}
+          scrollRenderAheadDistance={400}
+          onScroll={this.handleScroll}
           onEndReached={this.handleEndReached}
-          onEndReachedThreshold={100}
+          renderFooter={() =>
+            <Footer loading={loading} />
+          }
+          renderRow={rowData =>
+            <Item key={rowData.id} data={rowData} />
+          }
+          pullToRefresh={
+            <PullToRefresh
+              refreshing={refreshing}
+              onRefresh={this.handleRefresh}
+            />
+          }
         />
         <BackTop
           show={showBackTop}

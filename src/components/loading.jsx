@@ -2,9 +2,9 @@ import React from 'react'
 
 export default function Loading ({ error, pastDelay }) {
   if (error) {
-    return <div>Error!</div>
+    return <div style={{ textAlign: 'center' }}>Error!</div>
   } else if (pastDelay) {
-    return <div>Loading...</div>
+    return <div style={{ textAlign: 'center' }}>Loading...</div>
   } else {
     return null
   }

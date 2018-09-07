@@ -11,10 +11,8 @@ export default {
     let result = await fetch(`${baseURL}${url}`, {
       ...config,
       method: 'GET'
-    }).then(res => {
-      Toast.hide()
-      return res.text()
-    })
+    }).then(res => res.text())
+    Toast.hide()
     return JSON.parse(result)
   },
   async post (url, data) {
@@ -26,10 +24,8 @@ export default {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: new URLSearchParams(data).toString()
-    }).then(res => {
-      Toast.hide()
-      return res.text()
-    })
+    }).then(res => res.text())
+    Toast.hide()
     return JSON.parse(result)
   }
 }
