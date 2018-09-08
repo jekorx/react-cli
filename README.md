@@ -1,7 +1,7 @@
 # mobile-cli(the branch of react-cli)
 > [create-react-app](https://github.com/facebookincubator/create-react-app)  
 > 移动端模版分支，使用Ant Design Mobile作为UI框架  
-> 使用stylus，vw布局，支持css modules，必须是src目录下的.styl文件
+> 使用stylus，vw布局，支持css modules，必须是src目录下的.styl文件  
 > [访问地址](https://jekorx.github.io/react-cli)，由于路由是history模式（无法配置github web服务器），在非/目录刷新会404  
 > git subtree push --prefix build origin gh-pages  
 
