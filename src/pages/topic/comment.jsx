@@ -6,10 +6,10 @@ import $http from '@api'
 
 export default class Comment extends PureComponent {
   static propTypes = {
+    atk: PropTypes.string,
     topicId: PropTypes.string,
     replyId: PropTypes.string,
     replayName: PropTypes.string,
-    atk: PropTypes.string.isRequired,
     handleSucc: PropTypes.func,
     handleCancel: PropTypes.func
   }

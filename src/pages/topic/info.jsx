@@ -9,8 +9,8 @@ import types from '@src/json/types'
 
 class Info extends PureComponent {
   static propTypes = {
+    atk: PropTypes.string,
     topic: PropTypes.object.isRequired,
-    atk: PropTypes.string.isRequired,
     history: PropTypes.object.isRequired
   }
   state = {
@@ -44,7 +44,7 @@ class Info extends PureComponent {
     const { isCollect } = this.state
     return (
       <section className={styles.info}>
-        <Link to={`/user/${topic.author_id}`}>
+        <Link to={`/user/${topic.author.loginname}`}>
           <span
             className={styles.avatar}
             style={{ backgroundImage: `url(${topic.author.avatar_url})` }}

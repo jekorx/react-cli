@@ -18,7 +18,7 @@ class Replay extends PureComponent {
     handleSucc: PropTypes.func,
     handleReply: PropTypes.func,
     handleCancel: PropTypes.func,
-    atk: PropTypes.string.isRequired,
+    atk: PropTypes.string,
     history: PropTypes.object.isRequired
   }
   state = {

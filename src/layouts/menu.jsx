@@ -17,12 +17,15 @@ export default class Menu extends Component {
       drawerChange: PropTypes.func.isRequired
     }).isRequired,
     user: PropTypes.shape({
+      name: PropTypes.string.isRequired,
       isLogin: PropTypes.bool.isRequired
     }).isRequired
   }
   render () {
-    const { isLogin } = this.props.user
-    const { drawerChange, menu } = this.props._GV_
+    const {
+      user: { isLogin },
+      _GV_: { drawerChange, menu }
+    } = this.props
     return (
       <ul className={styles.menu}>
         <li>

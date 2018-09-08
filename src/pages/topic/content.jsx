@@ -10,7 +10,7 @@ import Comment from './comment'
 export default class Content extends Component {
   static propTypes = {
     topic: PropTypes.object,
-    atk: PropTypes.string.isRequired
+    atk: PropTypes.string
   }
   state = {
     showComment: false

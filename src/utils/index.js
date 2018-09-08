@@ -43,3 +43,22 @@ export const checkLogin = (atk, history) => {
   }
   return true
 }
+// 防抖函数
+export const debounce = (fn, delay = 800) => {
+  let timer = null
+  return () => {
+    clearTimeout(timer)
+    timer = setTimeout(() => fn && fn(), delay)
+  }
+}
+// 节流函数
+export const throttle = (fn, delay = 800) => {
+  let lastTime = null
+  return () => {
+    let now = +new Date()
+    if (now - lastTime > delay || !lastTime) {
+      fn && fn()
+      lastTime = now
+    }
+  }
+}

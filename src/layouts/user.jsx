@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { inject, observer } from 'mobx-react'
 import PropTypes from 'prop-types'
 import Icon from '@components/icon'
+import UserHeader from '@components/userheader'
 import styles from '@styles/layouts'
 
 @inject('_GV_', 'user')
@@ -19,6 +20,18 @@ class User extends Component {
       isLogin: PropTypes.bool.isRequired
     }).isRequired
   }
+  handleUserClick = () => {
+    const {
+      history,
+      _GV_: { drawerChange },
+      user: { name }
+    } = this.props
+    const pathname = `/user/${name}`
+    if (history.location.pathname !== pathname) {
+      history.push(pathname)
+    }
+    drawerChange()
+  }
   handleGoLogin = () => {
     const { _GV_: { drawerChange }, history } = this.props
     history.replace('/login', {
@@ -29,10 +42,11 @@ class User extends Component {
   render () {
     const { name, avatar, isLogin } = this.props.user
     return isLogin
-      ? <figure className={styles.user}>
-        <img src={avatar} className={styles.avatar} alt={name} />
-        <figcaption>{name}</figcaption>
-      </figure>
+      ? <UserHeader
+        name={name}
+        avatar={avatar}
+        onClick={this.handleUserClick}
+      />
       : <div
         onClick={this.handleGoLogin}
         className={styles.login}

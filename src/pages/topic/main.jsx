@@ -23,7 +23,7 @@ class Main extends Component {
       headerHeight: PropTypes.number.isRequired
     }).isRequired,
     user: PropTypes.shape({
-      accessToken: PropTypes.string.isRequired
+      accessToken: PropTypes.string
     }).isRequired,
     match: PropTypes.shape({
       params: PropTypes.object.isRequired
@@ -70,25 +70,6 @@ class Main extends Component {
       })
     }
   }
-  /* componentDidMount () {
-    this.topicRef.addEventListener('scroll', this.handleScroll, true)
-  }
-  componentWillUnmount () {
-    this.topicRef.removeEventListener('scroll', this.handleScroll)
-  }
-  // 过渡滚动到顶部
-  handleBackTop = () => {
-    clearInterval(this.timer)
-    this.timer = setInterval(() => {
-      const now = this.topicRef.scrollTop
-      if (now === 0) {
-        clearInterval(this.timer)
-        return
-      }
-      const speed = Math.floor(-now / 10)
-      this.topicRef.scrollTop = now + speed
-    }, 15)
-  } */
   // 滚动事件，控制返回顶部按钮显示隐藏
   handleScroll = e => {
     this.setState({
