@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import $http from '@api'
 import BackTop from '@components/backtop'
 import styles from '@styles/user'
-import { throttle } from '@utils'
+import { debounce } from '@utils'
 import Info from './info'
 import Relevant from './relevant'
 
@@ -31,11 +31,11 @@ class Main extends Component {
     const { name } = params
     this.props._GV_.setTitle({ title: `@${name} 的个人主页` })
     this.queryData(name)
-    this.handleScroll = throttle(() => {
+    this.handleScroll = debounce(() => {
       this.setState({
         showBackTop: this.userRef.scrollTop > 200
       })
-    })
+    }, 400)
     this.userRef.addEventListener('scroll', this.handleScroll, true)
   }
   componentWillUnmount () {
@@ -43,6 +43,7 @@ class Main extends Component {
   }
   // 过渡滚动到顶部
   handleBackTop = () => {
+    this.setState({ showBackTop: false })
     clearInterval(this.timer)
     this.timer = setInterval(() => {
       const now = this.userRef.scrollTop
