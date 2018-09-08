@@ -59,7 +59,7 @@ export default class Form extends PureComponent {
     })).then(({ success, error_msg: errorMsg }) => {
       if (success) {
         Toast.success('保存成功！', 0)
-        setTimeout(handleSaved, 2000)
+        setTimeout(handleSaved, 1000)
       } else {
         Toast.fail(errorMsg, 2)
       }

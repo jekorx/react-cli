@@ -59,11 +59,14 @@ class Main extends Component {
     setTitle({ title: '' })
     let { success, data } = await $http.get(`topic/${params.id}?accesstoken=${accessToken}`)
     if (success) {
+      let cnt = Object.assign({}, data)
+      let list = [cnt].concat(data.replies)
+      delete cnt.replies
       this.setState({
         topic: data,
         refreshing: false,
-        list: data.replies,
-        dataSource: this.state.dataSource.cloneWithRows(data.replies || [])
+        list,
+        dataSource: this.state.dataSource.cloneWithRows(list)
       })
     }
   }
@@ -111,7 +114,7 @@ class Main extends Component {
     const { user: { accessToken }, history } = this.props
     // 检查是否登录
     if (!checkLogin(accessToken, history)) return
-    let list = this.state.list.map((t, idx) => Object.assign({}, t, {
+    let list = this.state.list.map((t, idx) => Object.assign({}, t, idx > 0 && {
       showComment: idx === +rowId
     }))
     this.setState({
@@ -138,24 +141,23 @@ class Main extends Component {
               indicator={indicator}
             />
           }
-          renderHeader={() =>
-            <Content
-              topic={topic}
-              atk={accessToken}
-            />
-          }
           renderRow={(rowData, sectionID, rowID) =>
-            <Reply
-              key={rowData.id}
-              rowId={+rowID}
-              data={rowData}
-              atk={accessToken}
-              topicId={topic.id}
-              author={topic.author && topic.author.loginname}
-              handleSucc={this.queryData}
-              handleReply={() => this.handleReply(rowID)}
-              handleCancel={() => this.handleReply(-1)}
-            />
+            +rowID === 0
+              ? <Content
+                topic={rowData}
+                atk={accessToken}
+              />
+              : <Reply
+                key={rowData.id}
+                rowId={+rowID}
+                data={rowData}
+                atk={accessToken}
+                topicId={topic.id}
+                author={topic.author && topic.author.loginname}
+                handleSucc={this.queryData}
+                handleReply={() => this.handleReply(rowID)}
+                handleCancel={() => this.handleReply(-1)}
+              />
           }
         />
         <BackTop
