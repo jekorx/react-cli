@@ -70,11 +70,15 @@ class Replay extends PureComponent {
             <span className={styles['reply-right']}>
               <Icon
                 type={uped ? 'uped' : 'up'}
-                color="#333"
+                className={styles['reply-icon']}
                 onClick={this.handleUp}
               />
               <span className={styles['up-count']}>{data.ups.length + count}</span>
-              <Icon type="reply" color="#333" onClick={handleReply} />
+              <Icon
+                type="reply"
+                className={styles['reply-icon']}
+                onClick={handleReply}
+              />
             </span>
           </div>
         </section>

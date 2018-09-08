@@ -8,10 +8,10 @@ export default class Item extends PureComponent {
     good: PropTypes.bool,
     top: PropTypes.bool,
     tab: PropTypes.string,
-    clsName: PropTypes.string
+    className: PropTypes.string
   }
   render () {
-    const { good, top, tab, clsName } = this.props
+    const { good, top, tab, className } = this.props
     let type = types[tab]
     if (top) type = '置顶'
     if (good) type = '精华'
@@ -19,7 +19,7 @@ export default class Item extends PureComponent {
       <span
         className={[
           styles.tag,
-          clsName,
+          className,
           (top || good) ? styles['tab-hightlight'] : ''
         ].join(' ')}
       >{type}</span>

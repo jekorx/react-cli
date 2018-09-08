@@ -6,11 +6,11 @@ export default class Icon extends PureComponent {
     type: PropTypes.string.isRequired,
     size: PropTypes.string,
     color: PropTypes.string,
-    clsName: PropTypes.string,
+    className: PropTypes.string,
     onClick: PropTypes.func
   }
   render () {
-    const { color, type, size, clsName, onClick } = this.props
+    const { color, type, size, className, onClick } = this.props
     return (
       <i
         style={{
@@ -18,7 +18,7 @@ export default class Icon extends PureComponent {
           color
         }}
         onClick={onClick}
-        className={['iconfont', `icon-${type}`, clsName].join(' ')}
+        className={['iconfont', `icon-${type}`, className].join(' ')}
       ></i>
     )
   }

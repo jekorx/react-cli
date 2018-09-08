@@ -31,7 +31,7 @@ export default class Content extends Component {
               good={topic.good}
               top={topic.top}
               tab={topic.tab}
-              clsName={styles.tag}
+              className={styles.tag}
             />
           </span>}
           {topic.title}

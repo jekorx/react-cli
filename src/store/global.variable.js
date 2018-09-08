@@ -8,6 +8,7 @@ export default class GV {
   constructor () {
     const { pathname } = window.location
     this.path = pathname.substr(pathname.lastIndexOf('/'))
+    this.headerHeight = (document.documentElement.clientWidth || document.body.clientWidth) / 750 * 90
   }
   // 菜单
   menu = [...prevMenuData, ...menuData, ...secondMenuData]
@@ -17,6 +18,8 @@ export default class GV {
   @observable title = ''
   // 左侧抽屉菜单状态
   @observable drawer = false
+  // header高度
+  @observable headerHeight = 0
 
   // 设置抽屉菜单状态切换
   @action.bound drawerChange () {

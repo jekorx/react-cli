@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import { ListView, PullToRefresh } from 'antd-mobile'
 import $http from '@api'
 import BackTop from '@components/backtop'
+import indicator from '@components/indicator'
 import { checkLogin } from '@utils'
 import Content from './content'
 import Reply from './reply'
@@ -18,7 +19,8 @@ class Main extends Component {
   }
   static propTypes = {
     _GV_: PropTypes.shape({
-      setTitle: PropTypes.func.isRequired
+      setTitle: PropTypes.func.isRequired,
+      headerHeight: PropTypes.number.isRequired
     }).isRequired,
     user: PropTypes.shape({
       accessToken: PropTypes.string.isRequired
@@ -38,9 +40,13 @@ class Main extends Component {
       rowHasChanged: (row1, row2) => (row1.id !== row2.id) || (row1.showComment !== row2.showComment)
     }), // listview数据源
     pageSize: 14, // 每次渲染条数
-    height: (document.documentElement.clientHeight || document.body.clientHeight) - 45
+    height: 0
   }
   componentDidMount () {
+    const { headerHeight } = this.props._GV_
+    this.setState({
+      height: (document.documentElement.clientHeight || document.body.clientHeight) - headerHeight
+    })
     this.queryData()
   }
   // 加载数据
@@ -129,6 +135,7 @@ class Main extends Component {
             <PullToRefresh
               refreshing={refreshing}
               onRefresh={this.handleRefresh}
+              indicator={indicator}
             />
           }
           renderHeader={() =>

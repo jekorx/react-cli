@@ -18,7 +18,7 @@ export default class BackTop extends PureComponent {
       >
         <Icon
           type="rocket"
-          clsName={styles['back-top-icon']}
+          className={styles['back-top-icon']}
         />
       </span>
     )

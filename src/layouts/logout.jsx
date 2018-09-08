@@ -33,11 +33,11 @@ class Logout extends Component {
   render () {
     return (
       <Fragment>
-        <li className={styles['ignore-divider']}></li>
+        <li className={styles.divider}></li>
         <li onClick={this.handleLogout}>
-          <span className={styles['ignore-link']}>
-            <Icon type="logout" clsName={styles['ignore-icon']} />
-            <span className={styles['ignore-title']}>退出</span>
+          <span className={styles.link}>
+            <Icon type="logout" className={styles['link-icon']} />
+            <span className={styles['link-title']}>退出</span>
           </span>
         </li>
       </Fragment>

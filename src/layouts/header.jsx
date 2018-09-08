@@ -37,17 +37,25 @@ class Header extends Component {
     return (
       <NavBar
         mode="light"
-        icon={<Icon type={
-          withBack(history) ? 'back' : 'release'
-        } color={
-          withBack(history) ? '#000' : '#1890ff'
-        } size="20" />}
+        icon={
+          <Icon
+            className={styles['header-icon']}
+            type={withBack(history) ? 'back' : 'release'}
+            color={withBack(history) ? '#000' : '#1890ff'}
+          />
+        }
         onLeftClick={this.handleLeftClick}
-        className={styles['ignore-header']}
-        rightContent={<Icon onClick={drawerChange} type="menu" size="20" />}
+        className={styles.header}
+        rightContent={
+          <Icon
+            type="menu"
+            className={styles['header-icon']}
+            onClick={drawerChange}
+          />
+        }
       >
         <Logo />
-        {title && <span style={{ paddingRight: 45 }}>{title}</span>}
+        {title && <span className={styles['header-title']}>{title}</span>}
       </NavBar>
     )
   }

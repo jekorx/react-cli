@@ -24,22 +24,22 @@ export default class Menu extends Component {
     const { isLogin } = this.props.user
     const { drawerChange, menu } = this.props._GV_
     return (
-      <ul className={styles['ignore-menu']}>
+      <ul className={styles.menu}>
         <li>
           <User />
         </li>
-        <li className={styles['ignore-divider']}></li>
+        <li className={styles.divider}></li>
         {menu.map((m, i) =>
           m.path
             ? <li key={m.path} onClick={drawerChange}>
-              <Link to={m.path} className={styles['ignore-link']}>
-                <Icon type={m.icon} clsName={styles['ignore-icon']}/>
-                <span className={styles['ignore-title']}>{m.title}</span>
+              <Link to={m.path} className={styles.link}>
+                <Icon type={m.icon} className={styles['link-icon']}/>
+                <span className={styles['link-title']}>{m.title}</span>
               </Link>
             </li>
             : <li
               key={`divider${i}`}
-              className={styles['ignore-divider']}
+              className={styles.divider}
             ></li>
         )}
         {isLogin && <Logout />}

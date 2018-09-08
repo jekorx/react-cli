@@ -10,7 +10,7 @@ export default class Main extends Component {
       <Fragment>
         <Header />
         <Left />
-        <div className={styles['ignore-content']}>
+        <div className={styles.content}>
           <RouteViews routes={routes} />
         </div>
       </Fragment>

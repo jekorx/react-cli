@@ -29,16 +29,16 @@ class User extends Component {
   render () {
     const { name, avatar, isLogin } = this.props.user
     return isLogin
-      ? <figure className={styles['ignore-user']}>
-        <img src={avatar} className={styles['ignore-avatar']} alt={name} />
+      ? <figure className={styles.user}>
+        <img src={avatar} className={styles.avatar} alt={name} />
         <figcaption>{name}</figcaption>
       </figure>
       : <div
         onClick={this.handleGoLogin}
-        className={styles['ignore-login']}
+        className={styles.login}
       >
-        <Icon type="user" color="#1890ff" size="30" />
-        <span className={styles['ignore-text']}>登录</span>
+        <Icon type="user" className={styles['login-icon']} />
+        <span className={styles['login-text']}>登录</span>
       </div>
   }
 }
