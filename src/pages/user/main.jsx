@@ -6,13 +6,17 @@ import { PullToRefresh, ListView } from 'antd-mobile'
 import $http from '@api'
 import BackTop from '@components/backtop'
 import indicator from '@components/indicator'
-import styles from '@styles/user'
 import Info from './info'
 import Item from './item'
+import Title from './title'
 
 @inject('_GV_')
 @observer
 class Main extends Component {
+  constructor (props) {
+    super(props)
+    this.queryData = this.queryData.bind(this)
+  }
   static propTypes = {
     _GV_: PropTypes.shape({
       setTitle: PropTypes.func.isRequired,
@@ -24,8 +28,8 @@ class Main extends Component {
   }
   state = {
     dataSource: new ListView.DataSource({
-      // 当id改变时表示该行数据发生变化
-      rowHasChanged: (row1, row2) => row1.id !== row2.id
+      // 当id或者loginname改变时表示该行数据发生变化
+      rowHasChanged: (row1, row2) => (row1.id !== row2.id) || (row1.loginname !== row2.loginname)
     }), // listview数据源
     name: '',
     pageSize: 14,
@@ -45,38 +49,59 @@ class Main extends Component {
       height: (document.documentElement.clientHeight || document.body.clientHeight) - headerHeight
     }, this.queryData)
   }
-  queryData = () => {
+  componentDidUpdate (prevProps) {
+    const {
+      match: { params: { name } },
+      _GV_: { setTitle }
+    } = this.props
+    // 仅当当前参数name发生变化时重新加载数据
+    if (name !== prevProps.match.params.name) {
+      setTitle({ title: `@${name} 的个人主页` })
+      this.setState({ name }, this.queryData)
+    }
+  }
+  async queryData () {
     const { name } = this.state
-    $http.get(`user/${name}`).then(({ success, data }) => {
-      if (success) {
-        const { dataSource } = this.state
-        const list = [
-          { // 个人信息部分 索引 0
-            avatarUrl: data.avatar_url,
-            createAt: data.create_at,
-            githubUsername: data.githubUsername,
-            loginname: data.loginname,
-            score: data.score
-          },
-          { // recent_topics的标题
-            type: 'recent_title',
-            title: '最近创建的话题'
-          },
-          // 最近创建的话题
-          ...data.recent_topics,
-          { // recent_replies的标题
-            type: 'recent_title',
-            title: '最近参与的话题'
-          },
-          // 最近参与的话题
-          ...data.recent_replies
-        ]
-        this.setState({
-          dataSource: dataSource.cloneWithRows(list),
-          refreshing: false
-        })
-      }
-    })
+    let res = await $http.get(`user/${name}`)
+    let collect = await $http.get(`topic_collect/${name}`)
+    const { success, data } = res
+    if (success) {
+      const cData = (collect.success && collect.data) ? collect.data : []
+      const { dataSource } = this.state
+      const list = [
+        { // 个人信息部分 索引 0
+          avatarUrl: data.avatar_url,
+          createAt: data.create_at,
+          githubUsername: data.githubUsername,
+          loginname: data.loginname,
+          score: data.score
+        },
+        { // recent_topics的标题
+          type: 'RECENT_TITLE',
+          title: '最近创建的话题',
+          icon: 'msg'
+        },
+        // 最近创建的话题
+        ...data.recent_topics,
+        { // recent_replies的标题
+          type: 'RECENT_TITLE',
+          title: '最近参与的话题',
+          icon: 'reply'
+        },
+        // 最近参与的话题
+        ...data.recent_replies,
+        { // recent_collect的标题
+          type: 'RECENT_TITLE',
+          title: '收藏的话题',
+          icon: 'collections'
+        },
+        ...cData
+      ]
+      this.setState({
+        dataSource: dataSource.cloneWithRows(list),
+        refreshing: false
+      })
+    }
   }
   // 下拉刷新
   handleRefresh = () => {
@@ -122,9 +147,9 @@ class Main extends Component {
               // 第一个渲染个人信息
               ? <Info info={rowData} />
               : (
-                rowData.type === 'recent_title'
+                rowData.type === 'RECENT_TITLE'
                   // 如果是标题，渲染标题
-                  ? <h3 className={styles.type}>{rowData.title}</h3>
+                  ? <Title data={rowData} />
                   // 渲染列表
                   : <Item data={rowData} />
               )

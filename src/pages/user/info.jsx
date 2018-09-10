@@ -18,6 +18,7 @@ export default class Info extends PureComponent {
           avatar={avatarUrl}
         />
         <p className={styles.text}>
+          <Icon type="score" className={styles.icon} />
           {score} 积分
           <a
             className={styles.github}

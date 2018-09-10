@@ -36,7 +36,7 @@ class Main extends Component {
     refreshing: false,
     list: [],
     dataSource: new ListView.DataSource({
-      // 当id改变时表示该行数据发生变化
+      // 当id或者showComment改变时表示该行数据发生变化
       rowHasChanged: (row1, row2) => (row1.id !== row2.id) || (row1.showComment !== row2.showComment)
     }), // listview数据源
     pageSize: 14, // 每次渲染条数
