@@ -20,8 +20,8 @@ class Main extends Component {
     }).isRequired
   }
   componentDidMount () {
-    const { history } = this.props
-    this.props._GV_.setTitle({ path: history.location.pathname })
+    const { history, _GV_: { setTitle } } = this.props
+    setTitle({ path: history.location.pathname })
   }
   handleSaved = () => {
     const { history } = this.props

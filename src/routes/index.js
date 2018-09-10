@@ -20,6 +20,7 @@ const Topic = LoadWrapper(() => import(/* webpackChunkName: "topic" */'@pages/to
 const User = LoadWrapper(() => import(/* webpackChunkName: "user" */'@pages/user'))
 const Write = LoadWrapper(() => import(/* webpackChunkName: "write" */'@pages/write'))
 const Message = LoadWrapper(() => import(/* webpackChunkName: "message" */'@pages/message'))
+const About = LoadWrapper(() => import(/* webpackChunkName: "about" */'@pages/about'))
 // 路由列表
 export const routes = [
   { path: '/', exact: true, component: List, title: '全部' },
@@ -29,6 +30,7 @@ export const routes = [
   { path: '/share', component: List, title: '分享' },
   { path: '/ask', component: List, title: '问答' },
   { path: '/job', component: List, title: '招聘' },
+  { path: '/about', component: About, title: '关于' },
   { path: '/topic/:id', component: Topic, title: '详细' },
   { path: '/user/:name', component: User, title: '用户' },
   { path: '/create', component: Write, isAuth: true, title: '发布话题' },
