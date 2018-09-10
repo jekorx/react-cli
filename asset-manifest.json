@@ -1,7 +1,7 @@
 {
   "about.js": "static/js/about.ee44a0c6.chunk.js",
   "login.js": "static/js/login.ea318c57.chunk.js",
-  "main.css": "static/css/main.375cd706.css",
+  "main.css": "static/css/main.d7b51816.css",
   "main.js": "static/js/main.6a4d5437.js",
   "message.js": "static/js/message.ed939866.chunk.js",
   "static\\media\\error.png": "static/media/error.0f0af804.png",
@@ -10,6 +10,6 @@
   "topic.js": "static/js/topic.a0fe3e31.chunk.js",
   "user.js": "static/js/user.bf3b3737.chunk.js",
   "vendors.css": "static/css/vendors.201f1b4a.css",
-  "vendors.js": "static/js/vendors.18a2e1bf.js",
-  "write.js": "static/js/write.d5cc3621.chunk.js"
+  "vendors.js": "static/js/vendors.53269cfe.js",
+  "write.js": "static/js/write.a88dc1fa.chunk.js"
 }
