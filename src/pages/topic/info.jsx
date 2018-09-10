@@ -56,6 +56,8 @@ class Info extends PureComponent {
         </div>
         <div className={styles['collect-wrap']}>
           <Button
+            inline
+            size="small"
             className={styles.collect}
             onClick={this.handleCollect}
             type={isCollect ? 'ghost' : 'primary'}
