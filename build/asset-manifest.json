@@ -1,14 +1,14 @@
 {
-  "login.js": "static/js/login.3d3ba3c9.chunk.js",
-  "main.css": "static/css/main.d75c2098.css",
-  "main.js": "static/js/main.c3e8853b.js",
-  "message.js": "static/js/message.a3e6df9c.chunk.js",
+  "login.js": "static/js/login.fc5262dd.chunk.js",
+  "main.css": "static/css/main.fb01ad23.css",
+  "main.js": "static/js/main.0a07a2d3.js",
+  "message.js": "static/js/message.0bb7306b.chunk.js",
   "static\\media\\error.png": "static/media/error.0f0af804.png",
   "static\\media\\loading.gif": "static/media/loading.b3419887.gif",
   "static\\media\\logo.svg": "static/media/logo.8bd8b5c5.svg",
-  "topic.js": "static/js/topic.890ecb1b.chunk.js",
-  "user.js": "static/js/user.ad03cba9.chunk.js",
+  "topic.js": "static/js/topic.860b7d45.chunk.js",
+  "user.js": "static/js/user.0ddc7bcf.chunk.js",
   "vendors.css": "static/css/vendors.201f1b4a.css",
-  "vendors.js": "static/js/vendors.0ac60574.js",
-  "write.js": "static/js/write.eb243bac.chunk.js"
+  "vendors.js": "static/js/vendors.e86554ca.js",
+  "write.js": "static/js/write.7984eed0.chunk.js"
 }

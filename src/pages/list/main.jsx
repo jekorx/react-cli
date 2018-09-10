@@ -87,11 +87,11 @@ export default class Main extends Component {
   }
   // 下拉刷新
   handleRefresh = () => {
-    /* this.setState({
+    this.setState({
       list: [],
       pageNo: 1,
       refreshing: true
-    }, this.queryData) */
+    }, this.queryData)
   }
   // 滚动事件，控制返回顶部按钮显示隐藏
   handleScroll = e => {

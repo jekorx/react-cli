@@ -12,7 +12,10 @@ export default class UserHeader extends PureComponent {
     const { avatar, name, onClick } = this.props
     return (
       <figure className={styles.user} onClick={onClick}>
-        <img src={avatar} className={styles.avatar} alt={name} />
+        <div
+          className={styles.avatar}
+          style={{ backgroundImage: `url(${avatar})` }}
+        ></div>
         <figcaption>{name}</figcaption>
       </figure>
     )
