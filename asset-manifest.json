@@ -1,14 +1,15 @@
 {
-  "login.js": "static/js/login.fc5262dd.chunk.js",
-  "main.css": "static/css/main.fb01ad23.css",
-  "main.js": "static/js/main.0a07a2d3.js",
-  "message.js": "static/js/message.0bb7306b.chunk.js",
+  "about.js": "static/js/about.ee44a0c6.chunk.js",
+  "login.js": "static/js/login.ea318c57.chunk.js",
+  "main.css": "static/css/main.f6d59f8d.css",
+  "main.js": "static/js/main.6a4d5437.js",
+  "message.js": "static/js/message.ed939866.chunk.js",
   "static\\media\\error.png": "static/media/error.0f0af804.png",
   "static\\media\\loading.gif": "static/media/loading.b3419887.gif",
   "static\\media\\logo.svg": "static/media/logo.8bd8b5c5.svg",
-  "topic.js": "static/js/topic.860b7d45.chunk.js",
-  "user.js": "static/js/user.0ddc7bcf.chunk.js",
+  "topic.js": "static/js/topic.7c54a33d.chunk.js",
+  "user.js": "static/js/user.bf3b3737.chunk.js",
   "vendors.css": "static/css/vendors.201f1b4a.css",
-  "vendors.js": "static/js/vendors.e86554ca.js",
-  "write.js": "static/js/write.7984eed0.chunk.js"
+  "vendors.js": "static/js/vendors.c59154b5.js",
+  "write.js": "static/js/write.d5cc3621.chunk.js"
 }
