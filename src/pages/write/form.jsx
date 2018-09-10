@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Picker, List, InputItem, TextareaItem, Button, Toast } from 'antd-mobile'
+import { Picker, List, TextareaItem, InputItem, Button, Toast } from 'antd-mobile'
 import styles from '@styles/write'
 import typesData from '@src/json/types'
 import $http from '@api'
@@ -79,27 +79,23 @@ export default class Form extends PureComponent {
         >
           <Item
             extra={tabName}
+            className={[styles.item, styles.ignore].join(' ')}
             arrow="horizontal"
           >板块</Item>
         </Picker>
-        <Item className={styles.item}>
-          <InputItem
-            className={styles.ignore}
-            clear
-            value={title}
-            placeholder="标题字数10字以上"
-            onChange={val => this.handleChange(val, 'title')}
-          />
-        </Item>
-        <Item className={styles.item}>
-          <TextareaItem
-            className={styles.ignore}
-            autoHeight
-            value={content}
-            placeholder="支持Markdown语法"
-            onChange={val => this.handleChange(val, 'content')}
-          />
-        </Item>
+        <InputItem
+          clear
+          className={[styles.item, styles.ignore].join(' ')}
+          value={title}
+          placeholder="标题，字数10字以上"
+          onChange={val => this.handleChange(val, 'title')}
+        />
+        <TextareaItem
+          rows={10}
+          value={content}
+          placeholder="主体内容，支持Markdown语法"
+          onChange={val => this.handleChange(val, 'content')}
+        />
         <Item>
           <Button
             type="primary"
