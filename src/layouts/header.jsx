@@ -14,13 +14,16 @@ const withBack = ({ location: { pathname } }) => {
   }]).find(m => m.path === pathname)
 }
 
-@inject('_GV_')
+@inject('_GV_', 'user')
 @observer
 class Header extends Component {
   static propTypes = {
     _GV_: PropTypes.shape({
       title: PropTypes.string.isRequired,
       drawerChange: PropTypes.func.isRequired
+    }).isRequired,
+    user: PropTypes.shape({
+      msgCount: PropTypes.number.isRequired
     }).isRequired,
     history: PropTypes.object.isRequired
   }
@@ -33,7 +36,11 @@ class Header extends Component {
     }
   }
   render () {
-    const { _GV_: { title, drawerChange }, history } = this.props
+    const {
+      user: { msgCount },
+      _GV_: { title, drawerChange },
+      history
+    } = this.props
     return (
       <NavBar
         mode="light"
@@ -47,11 +54,14 @@ class Header extends Component {
         onLeftClick={this.handleLeftClick}
         className={styles.header}
         rightContent={
-          <Icon
-            type="menu"
-            className={styles['header-icon']}
-            onClick={drawerChange}
-          />
+          <span className={styles['header-icon-wrap']}>
+            <Icon
+              type="menu"
+              className={styles['header-icon']}
+              onClick={drawerChange}
+            />
+            {msgCount > 0 && <i className={[styles.badge]}></i>}
+          </span>
         }
       >
         <Logo />

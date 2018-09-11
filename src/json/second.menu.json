@@ -3,7 +3,8 @@
   {
     "path": "/message",
     "title": "消息",
-    "icon": "ring"
+    "icon": "ring",
+    "badge": true
   },
   {
     "path": "/about",

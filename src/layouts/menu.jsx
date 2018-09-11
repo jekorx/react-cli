@@ -18,12 +18,13 @@ export default class Menu extends Component {
     }).isRequired,
     user: PropTypes.shape({
       name: PropTypes.string.isRequired,
+      msgCount: PropTypes.number.isRequired,
       isLogin: PropTypes.bool.isRequired
     }).isRequired
   }
   render () {
     const {
-      user: { isLogin },
+      user: { isLogin, msgCount },
       _GV_: { drawerChange, menu }
     } = this.props
     return (
@@ -36,6 +37,9 @@ export default class Menu extends Component {
           m.path
             ? <li key={m.path} onClick={drawerChange}>
               <Link to={m.path} className={styles.link}>
+                {(m.badge && msgCount > 0) && <i className={styles['badge-num']}>
+                  {msgCount > 99 ? '99+' : msgCount}
+                </i>}
                 <Icon type={m.icon} className={styles['link-icon']}/>
                 <span className={styles['link-title']}>{m.title}</span>
               </Link>

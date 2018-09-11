@@ -16,10 +16,11 @@ export default class Form extends PureComponent {
   state = {
     types: Object.entries(typesData).map(t => ({ value: t[0], label: t[1] })),
     title: '',
-    tab: '',
+    tab: 'dev',
     content: ''
   }
   componentDidMount () {
+    this.titleRef.focus()
     const { topicId } = this.props
     topicId && this.queryData(topicId)
   }
@@ -85,6 +86,7 @@ export default class Form extends PureComponent {
         </Picker>
         <InputItem
           clear
+          ref={e => { this.titleRef = e }}
           className={[styles.item, styles.ignore].join(' ')}
           value={title}
           placeholder="标题，字数10字以上"

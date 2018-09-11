@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Button } from 'antd-mobile'
+import { Link } from 'react-router-dom'
 import Tag from '@components/tag'
+import Icon from '@components/icon'
 import Info from './info'
 import styles from '@styles/topic'
 import InnerHTML from '@components/innerhtml'
@@ -11,7 +13,8 @@ export default class Content extends Component {
   static propTypes = {
     handleSucc: PropTypes.func,
     topic: PropTypes.object,
-    atk: PropTypes.string
+    atk: PropTypes.string,
+    authorId: PropTypes.string
   }
   state = {
     showComment: false
@@ -26,7 +29,7 @@ export default class Content extends Component {
     this.props.handleSucc()
   }
   render () {
-    const { topic, atk } = this.props
+    const { topic, atk, authorId } = this.props
     const { showComment } = this.state
     return (
       <div className={styles.topic}>
@@ -40,8 +43,11 @@ export default class Content extends Component {
             />
           </span>}
           {topic.title}
+          {authorId === topic.author_id && <Link to={`/edit/${topic.id}`}>
+            <Icon type="edit" className={styles.edit} />
+          </Link>}
         </h2>
-        {topic.author && <Info topic={topic} atk={atk} />}
+        {topic.author && <Info topic={topic} atk={atk} authorId={authorId} />}
         <InnerHTML cnt={topic.content} />
         <h3 className={styles['reply-header']}>
           <strong>

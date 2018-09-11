@@ -5,10 +5,15 @@ import PropTypes from 'prop-types'
 import Icon from '@components/icon'
 import UserHeader from '@components/userheader'
 import styles from '@styles/layouts'
+import $http from '@api'
 
 @inject('_GV_', 'user')
 @observer
 class User extends Component {
+  constructor (props) {
+    super(props)
+    this.queryMsgCount = this.queryMsgCount.bind(this)
+  }
   static propTypes = {
     history: PropTypes.object.isRequired,
     _GV_: PropTypes.shape({
@@ -16,9 +21,23 @@ class User extends Component {
     }).isRequired,
     user: PropTypes.shape({
       name: PropTypes.string.isRequired,
+      accessToken: PropTypes.string.isRequired,
       avatar: PropTypes.string.isRequired,
-      isLogin: PropTypes.bool.isRequired
+      isLogin: PropTypes.bool.isRequired,
+      setMsgCount: PropTypes.func.isRequired
     }).isRequired
+  }
+  componentDidMount () {
+    setTimeout(this.queryMsgCount, 0)
+  }
+  componentDidUpdate () {
+    this.queryMsgCount()
+  }
+  async queryMsgCount () {
+    const { accessToken, setMsgCount } = this.props.user
+    if (!accessToken) return
+    let { success, data } = await $http.get(`/message/count?accesstoken=${accessToken}`)
+    success && setMsgCount(data)
   }
   handleUserClick = () => {
     const {

@@ -59,8 +59,8 @@ export default class Main extends Component {
     this.setState({ loading: true })
     const { pageNo, pageSize, tab } = this.state
     let { success, data } = await $http.get(`topics?tab=${tab}&page=${pageNo}&limit=${pageSize}&mdrender=false`)
-    if (success && data) {
-      if (data.length > 0) {
+    if (success) {
+      if (data && data.length > 0) {
         let list = [...this.state.list, ...data]
         const { dataSource, pageNo } = this.state
         this.setState({

@@ -20,7 +20,7 @@ export default class Comment extends PureComponent {
     const { replayName } = this.props
     if (replayName) {
       this.setState({
-        content: `@${replayName} `
+        content: `[@${replayName}](/user/${replayName}) `
       })
     }
   }

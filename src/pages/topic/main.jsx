@@ -23,6 +23,7 @@ class Main extends Component {
       headerHeight: PropTypes.number.isRequired
     }).isRequired,
     user: PropTypes.shape({
+      id: PropTypes.string,
       accessToken: PropTypes.string
     }).isRequired,
     match: PropTypes.shape({
@@ -104,7 +105,7 @@ class Main extends Component {
   }
   render () {
     const { topic, showBackTop, dataSource, height, pageSize, refreshing } = this.state
-    const { accessToken } = this.props.user
+    const { accessToken, id } = this.props.user
     return (
       <Fragment>
         <ListView
@@ -127,6 +128,7 @@ class Main extends Component {
               ? <Content
                 topic={rowData}
                 atk={accessToken}
+                authorId={id}
                 handleSucc={this.queryData}
               />
               : <Reply

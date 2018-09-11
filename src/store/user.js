@@ -20,6 +20,7 @@ export default class User {
   @observable avatar = ''
   @observable isLogin = false
   @observable accessToken = ''
+  @observable msgCount = 0
 
   // 设置用户信息，保存到cookie
   @action.bound setUserInfo ({ id, name, avatar, isLogin, accessToken }) {
@@ -39,6 +40,11 @@ export default class User {
     this.avatar = ''
     this.isLogin = false
     this.accessToken = ''
+    this.msgCount = 0
     removeCookie(USERINFOCOOKIE)
+  }
+  // 设置消息条数
+  @action.bound setMsgCount (num) {
+    this.msgCount = num
   }
 }
