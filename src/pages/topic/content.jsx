@@ -33,7 +33,7 @@ export default class Content extends Component {
     const { showComment } = this.state
     return (
       <div className={styles.topic}>
-        <h2 className={styles.title}>
+        <h2 className={styles['title-wrap']}>
           {(topic.good || topic.top) && <span className={styles['tag-wrap']}>
             <Tag
               good={topic.good}
@@ -42,7 +42,7 @@ export default class Content extends Component {
               className={styles.tag}
             />
           </span>}
-          {topic.title}
+          <span className={styles.title}>{topic.title}</span>
           {authorId === topic.author_id && <Link to={`/edit/${topic.id}`}>
             <Icon type="edit" className={styles.edit} />
           </Link>}

@@ -30,7 +30,7 @@ export default class GV {
     if (title) {
       this.title = title
     } else if (path) {
-      let obj = this.routes.find(r => r.path === path)
+      let obj = this.routes.find(r => path.startsWith(r.path))
       this.title = obj ? obj.title : '全部'
     } else {
       this.title = ''

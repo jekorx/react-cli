@@ -1,9 +1,5 @@
 [
   {
-    "path": "/",
-    "title": "全部"
-  },
-  {
     "path": "/login",
     "title": "登录"
   },
