@@ -35,7 +35,7 @@ class Info extends PureComponent {
           isCollect: !isCollect
         })
       } else {
-        Toast.fail(errorMsg, 2)
+        Toast.fail(errorMsg, 1)
       }
     })
   }

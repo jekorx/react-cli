@@ -9,6 +9,7 @@ import Comment from './comment'
 
 export default class Content extends Component {
   static propTypes = {
+    handleSucc: PropTypes.func,
     topic: PropTypes.object,
     atk: PropTypes.string
   }
@@ -19,6 +20,10 @@ export default class Content extends Component {
     this.setState({
       showComment: !this.state.showComment
     })
+  }
+  handleSucc = () => {
+    this.handleToggleReply()
+    this.props.handleSucc()
   }
   render () {
     const { topic, atk } = this.props
@@ -52,7 +57,11 @@ export default class Content extends Component {
           >{showComment ? '取消' : '添加回复'}</Button>
         </h3>
         <div style={{ display: showComment ? 'block' : 'none' }}>
-          <Comment atk={atk} topicId={topic.id} />
+          <Comment
+            atk={atk}
+            topicId={topic.id}
+            handleSucc={this.handleSucc}
+          />
         </div>
       </div>
     )

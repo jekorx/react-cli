@@ -127,6 +127,7 @@ class Main extends Component {
               ? <Content
                 topic={rowData}
                 atk={accessToken}
+                handleSucc={this.queryData}
               />
               : <Reply
                 key={rowData.id}

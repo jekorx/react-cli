@@ -44,6 +44,9 @@ export default class Comment extends PureComponent {
     } : {})).then(({ success }) => {
       if (success) {
         Toast.success('回复成功！', 0)
+        this.setState({
+          content: ''
+        })
         setTimeout(handleSucc, 1000)
       }
     })

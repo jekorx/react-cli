@@ -43,7 +43,7 @@ class Replay extends PureComponent {
           count: isUped ? (action === 'down' ? -1 : 0) : (action === 'up' ? 1 : 0)
         })
       } else {
-        Toast.fail(errorMsg, 2)
+        Toast.fail(errorMsg, 1)
       }
     })
   }
