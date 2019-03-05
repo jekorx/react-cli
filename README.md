@@ -1,5 +1,6 @@
 # react-cli(master branch)
 > [create-react-app](https://github.com/facebookincubator/create-react-app)  
+> [create-react-app@2.x.x](https://github.com/jekorx/react-cli-2)版本，请移步  
 > 使用stylus，支持css modules，必须是src目录下的.styl文件
 
 ### 样式提取注意
