@@ -1,7 +1,7 @@
 # react-cli(master branch)
 > [create-react-app](https://github.com/facebookincubator/create-react-app)  
 > [create-react-app@2.x.x](https://github.com/jekorx/react-cli-2)版本，请移步  
-> 使用stylus，支持css modules，必须是src目录下的.styl文件
+> 使用stylus，支持css modules，必须是src目录下的.styl文件，可以单独提取样式，但不支持css文件切分，新版本支持  
 
 ### 样式提取注意
 > 懒加载页面css modules，会导致样式无法提取，需要再同步组件中进行一次引用 @styles/index.js  
